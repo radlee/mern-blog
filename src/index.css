@@ -40,9 +40,39 @@ body {
   color: var(--color-gray-700);
 }
 
-.nav__logo {
-  width: 3rem;
-  display: block;
+a {
+  color: var(--color-gray-700);
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-gray-900);
+  line-height: 1.1;
+}
+
+h1 {
+  font-size: 2.2rem;
+}
+
+h2 {
+  font-size: 1.9rem;
+}
+
+h3 {
+  font-size: 1.3rem;
+  line-height: 1.25;
+}
+
+h4 {
+  line-height: 1.1rem;
+}
+
+h5 {
+  line-height: 1.4rem;
 }
 
 img {
@@ -50,3 +80,10 @@ img {
   object-fit: cover;
   width: 100%;
 }
+
+
+.nav__logo {
+  width: 3rem;
+  display: block;
+}
+
