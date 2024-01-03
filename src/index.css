@@ -104,7 +104,7 @@ section {
 
 .btn.primary {
   background: var(--color-primary);
-  color: var(--color-primary);
+  color: var(--color-white);
 }
 
 .btn.category {
@@ -124,6 +124,22 @@ section {
   color: var(--color-white);
 }
 
+
+.center {
+  text-align: center;
+  padding-top: 5rem;
+  margin-inline: auto;
+  display: block;
+  width: 100%;
+}
+
+.error-page h2 {
+  margin-top: 3rem;
+}
+
+
+
+/* ======== NAVBAR */
 nav {
   width: 100vw;
   height: 5rem;
@@ -180,7 +196,8 @@ footer {
   background: var(--color-gray-700);
   color: var(--color-white);
   padding: 0.6rem 1.4rem;
-  border-radius: var(--transition);
+  border-radius: var(--radius-2);
+  transition: var(--transition);
 }
 
 .footer__categories a:hover {

@@ -1,10 +1,9 @@
 import React from 'react'
+import Posts from '../components/Posts'
 
 function Home() {
   return (
-    <div>
-        <h1>Kasi</h1>
-    </div>
+    <Posts />
   )
 }
 
