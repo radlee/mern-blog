@@ -7,9 +7,11 @@ import { AiOutlineClose } from "react-icons/ai";
 
 function Header() {
     return (
-        <div className='container nav__container'>
-            <Link to='/' className='nav__logo'>
-                <img src={Logo} alt="Navbar Logo" />
+        <nav>
+            <div className='container nav__container'>
+                <Link to='/' className='nav__logo'>
+                    <img src={Logo} alt="Navbar Logo" />
+                </Link>
                 <ul className='nav__menu'>
                     <li><Link to='/profile'>Mpho S</Link></li>
                     <li><Link to='/create'>Create Post</Link></li>
@@ -19,8 +21,8 @@ function Header() {
                 <button className='nav__toggle-btn'>
                 <AiOutlineClose />
                 </button>
-            </Link>
-        </div>
+            </div>
+        </nav>
     )
 }
 
