@@ -13,7 +13,7 @@ function Header() {
                     <img src={Logo} alt="Navbar Logo" />
                 </Link>
                 <ul className='nav__menu'>
-                    <li><Link to='/profile'>Mpho S</Link></li>
+                    <li><Link to='/profile/lee'>Mpho S</Link></li>
                     <li><Link to='/create'>Create Post</Link></li>
                     <li><Link to='/authors'>Authors</Link></li>
                     <li><Link to='/logout'>Logout</Link></li>

@@ -9,11 +9,11 @@ import Avatar5 from '../images/avatar5.jpg'
 import { Link } from 'react-router-dom'
 
 const authoursData = [
-  {id: 1, avatar: Avatar1, name: 'Mafanga Lee', post: 3},
-  {id: 2, avatar: Avatar2, name: 'Modern Blogger', post: 5},
-  {id: 3, avatar: Avatar3, name: 'Team Leader', post: 0},
-  {id: 4, avatar: Avatar4, name: 'radblok Multimedia', post: 2},
-  {id: 5, avatar: Avatar5, name: 'Delft News', post: 1},
+  {id: 1, avatar: Avatar1, name: 'Mafanga Lee', posts: 3},
+  {id: 2, avatar: Avatar2, name: 'Modern Blogger', posts: 5},
+  {id: 3, avatar: Avatar3, name: 'Team Leader', posts: 0},
+  {id: 4, avatar: Avatar4, name: 'radblok Multimedia', posts: 2},
+  {id: 5, avatar: Avatar5, name: 'Delft News', posts: 1},
 ]
 
 function Authors() {
