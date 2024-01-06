@@ -1,9 +1,11 @@
 import React from 'react'
 
 function DeletePost() {
-  return (
-    <div>DeletePost</div>
-  )
+    return (
+        <div>
+            
+        </div>
+    )
 }
 
 export default DeletePost
