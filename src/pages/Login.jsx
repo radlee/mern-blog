@@ -21,7 +21,7 @@ function Login() {
                     <h2>Login</h2>
                     <form action="" className="form login__form">
                          <p className="form__error-message">Error</p>
-                         <input type="email" placeholder='Email' name='email' value={userData.email} onChange={changeInputHandler}/>
+                         <input type="email" placeholder='Email' name='email' value={userData.email} onChange={changeInputHandler} autoFocus/>
                          <input type="password" placeholder='Password' name='password1' value={userData.password1} onChange={changeInputHandler}/>
                          <button type='submit' className="btn primary">Login</button>
                     </form>
