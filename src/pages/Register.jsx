@@ -7,7 +7,7 @@ function Register() {
     const [userData, setUserData] = useState({
         name: '',
         email: '',
-        password1: '',
+        password: '',
         password2: ''
     });
 
@@ -22,6 +22,7 @@ function Register() {
 
     const registerUser = async (e) => {
         e.preventDefault();
+        setError('')
         try {
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/users/register`, userData)
             const newUser = await response.data;
