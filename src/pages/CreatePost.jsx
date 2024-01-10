@@ -1,12 +1,24 @@
-import React, { useState } from 'react'
-import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.snow.css'
+import React, { useState, useContext, useEffect } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { UserContext } from '../context/userContext';
+import { useNavigate } from 'react-router-dom';
 
 function CreatePost() {
-  const [title, setTitle] = useState('')
-  const [category, setCategory] = useState('Uncategorized')
-  const [description, setDescription] = useState('')
-  const [thumbnail, setThumbnail] = useState('')
+  const [title, setTitle] = useState('');
+  const [category, setCategory] = useState('Uncategorized');
+  const [description, setDescription] = useState('');
+  const [thumbnail, setThumbnail] = useState('');
+
+  const navigate = useNavigate();
+  const { currentUser } = useContext(UserContext);
+  const token = currentUser?.token;
+  // Redirect to Home Page for any user who is not logged in
+  useEffect(() => {
+    if(!token) {
+      navigate('/login')
+    }
+  }, []);
 
   const modules = {
     toolbar: [
@@ -16,14 +28,14 @@ function CreatePost() {
       ['link', 'image', 'video'],
       ['clean'],
     ]
-  }
+  };
 
   const formats = [
     'header',
     'bold', 'italic', 'underline', 'strike', 'blockquote',
     'list', 'bullet', 'indent',
     'link', 'image', 'video'
-  ]
+  ];
 
   const POST_CATEGORIES = ['Robotics','I.O.T', 'Art', 'Weather', 'General', 'JavaScript', 'Data Science', 'Design']
   return (

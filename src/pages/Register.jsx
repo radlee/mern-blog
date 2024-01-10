@@ -22,17 +22,16 @@ function Register() {
 
     const registerUser = async (e) => {
         e.preventDefault();
-        setError('')
         try {
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/users/register`, userData)
-            const newUser = await response.data;
+            const newUser = response.data;
             console.log(newUser);
             if(!newUser) {
                 setError('Could not register user. Please try again.');
             }
-            navigate('/login');
-        } catch (error) {
-            setError(error.response.data.message)
+            navigate('/login')();
+        } catch (err) {
+            setError(err.response.data.message)
         }
     }
     return (
