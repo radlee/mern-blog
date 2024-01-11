@@ -11,7 +11,7 @@ function Register() {
         password2: ''
     });
 
-    const [error, setError] = useState('');
+    const [error, setError] = useState('' );
     const navigate = useNavigate;
 
     const changeInputHandler = (e) => {
