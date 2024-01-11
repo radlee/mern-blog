@@ -6,7 +6,7 @@ import { UserContext } from '../context/userContext';
 
 function EditPost() {
   const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('Uncategorized');
+  const [category, setCategory] = useState('General');
   const [description, setDescription] = useState('');
   const [thumbnail, setThumbnail] = useState('');
 

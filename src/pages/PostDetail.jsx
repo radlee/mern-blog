@@ -39,9 +39,9 @@ function PostDetail() {
             {error && <p className='error'>{error}</p>}
             {post && <div className="container post-detail__container">
                 <div className="post-detail__header">
-                    <PostAuthor authorID={post.author}/>
+                    <PostAuthor authorID={post.author} createdAt={post.createdAt}/>
                     {currentUser?.id == post?.author && <div className="post-detail__buttons">
-                        <Link to={`/posts/lee/edit`} className='btn sm primary'>Edit</Link>
+                        <Link to={`/posts/${post?._id}/edit`} className='btn sm primary'>Edit</Link>
                         <DeletePost postId={id} />
                     </div>}
                 </div>

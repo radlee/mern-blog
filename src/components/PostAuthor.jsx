@@ -26,12 +26,12 @@ function PostAuthor({authorID, createdAt}) {
     getAuthor();
   }, []);
   return (
-    <Link to={`/posts/users/lee`} className='post__author'>
+    <Link to={`/posts/users/${authorID}`} className='post__author'>
         <div className="post__author-avatar">
-            <img src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${author?.avatar}`} alt='avatar' />
+            <img src={`${process.env.REACT_APP_ASETS_URL}/uploads/${author?.avatar}`} alt='avatar' />
         </div>
         <div className="post__author-details">
-            <h5>By: Mpho S</h5>
+            <h5>{author.name}</h5>
             <small><ReactTimeAgo date={new Date(createdAt)} locale='en-US' /></small>
         </div>
     </Link>
