@@ -9,7 +9,7 @@ function Footer() {
                 <li><Link to='posts/categories/I.O.T'>I.O.T</Link></li>
                 <li><Link to='posts/categories/Art'>Art</Link></li>
                 <li><Link to='posts/categories/Weather'>Weather</Link></li>
-                <li><Link to='posts/categories/Data Science'>'Data Science</Link></li>
+                <li><Link to='posts/categories/Data Science'>Data Science</Link></li>
                 <li><Link to='posts/categories/JavaScript'>JavaScript</Link></li>
                 <li><Link to='posts/categories/General'>General</Link></li>
                 <li><Link to='posts/categories/Design'>Design</Link></li>
