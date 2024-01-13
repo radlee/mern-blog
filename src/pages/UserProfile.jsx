@@ -1,19 +1,23 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { FaUserEdit } from "react-icons/fa"
+import React, { useContext, useEffect, useState } from 'react';
+import { FaUserEdit } from "react-icons/fa";
 import { FaCheckCircle  } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom"
-import Avatar from "../images/avatar15.jpg"
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from '../context/userContext';
+import axios from 'axios';
 
 
 function UserProfile() {
 
-    const [avatar, setAvatar] = useState(Avatar)
+    const [avatar, setAvatar] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
+    
+    const [isAvatarTouched, setIsAvatarTouched] = useState('');
+    const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
     const { currentUser } = useContext(UserContext);
@@ -25,6 +29,52 @@ function UserProfile() {
         }
     }, []);
 
+    useEffect(() => {
+        const getUser = async () => {
+            const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/users/${currentUser.id}`, {withCredentials: true, headers: {Authorization: `Bearer ${token}`}});
+            const { name, email, avatar } = response.data;
+            setName(name);
+            setEmail(email);
+            setAvatar(avatar);
+        }
+        getUser()
+    }, []);
+
+    const changeAvatarHandler = async () => {
+        // e.preventDefault();
+        setIsAvatarTouched(false);
+        try {
+            const postData = new FormData();
+            postData.set('avatar', avatar);
+            const response = await  axios.post(`${process.env.REACT_APP_BASE_URL}/users/change-avatar`, postData, {withCredentials: true, headers: { Authorization: `Bearer ${token}`}});
+            setAvatar(response?.data.avatar);
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
+    const updateUserDetails = async (e) => {
+        e.preventDefault();
+
+        try {
+            const userData = new FormData();
+            userData.set('name', name);
+            userData.set('email', email);
+            userData.set('currentPassword', currentPassword);
+            userData.set('newPassword', newPassword);
+            userData.set('confirmNewPassword', confirmNewPassword);
+
+            const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}/users/edit-user`, userData, {withCredentials: true, headers: {Authorization: `Bearer ${token}`}});
+            if(response.status == 200) {
+                //Log User Out
+                navigate('/logout');
+            }
+        } catch (error) {
+            console.log(error.response.data.message);
+        }
+    }
+
 
     return (
         <div>
@@ -35,23 +85,23 @@ function UserProfile() {
                 <div className="profile__details">
                     <div className="avatar__wrapper">
                         <div className="profile__avatar">
-                            <img src={avatar} alt="" />
+                            <img src={`${process.env.REACT_APP_ASETS_URL}/uploads/${avatar}`} alt="" />
                         </div>
                         {/* Form To Update the Author */}
-                        <form className="avatar__form">
+                        <form className="avatar__form" onSubmit={updateUserDetails}>
                             <input type="file" name='avatar' id='avatar' onChange={e => setAvatar(e.target.files[0])} accept='png, jpg, jpeg, webp'/>
-                            <label htmlFor='avatar'><FaUserEdit /></label>
+                            <label htmlFor='avatar' onClick={() => setAvatar(true)}><FaUserEdit /></label>
                         </form>
-                        <button className="profile__avatar-btn">
+                        { isAvatarTouched && <button className="profile__avatar-btn" onClick={ changeAvatarHandler }>
                             <FaCheckCircle  />
-                        </button>
+                        </button> }
                     </div>
-                    <h1>Ackrite Dayze</h1>
+                    <h1>{currentUser.name}</h1>
 
                     {/* Form To Update User Details */}
 
                     <form action="" className="form profile__form">
-                        <p className="form__error-message">Error</p>
+                        { error && <p className="form__error-message">{error}</p> }
                         <input type="text" placeholder='Full Name' value={name} onChange={e => setName(e.target.value)}/>
                         <input type="email" placeholder='E-Mail' value={email} onChange={e => setEmail(e.target.value)}/>
                         <input type="password" placeholder='Current Password' value={currentPassword} onChange={e => setCurrentPassword(e.target.value)}/>

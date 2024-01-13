@@ -9,13 +9,14 @@ import axios from 'axios';
 
 
 function PostDetail() {
-
-    const { id } = useParams();
+    
+    const { currentUser } = useContext(UserContext);
+    const { id } = currentUser.id;
+    // const { id } = useParams();
     const [post, setPost] = useState(null);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const { currentUser } = useContext(UserContext);
 
     useEffect(() => {
         const getPost = async () => {
@@ -40,7 +41,7 @@ function PostDetail() {
             {post && <div className="container post-detail__container">
                 <div className="post-detail__header">
                     <PostAuthor authorID={post.author} createdAt={post.createdAt}/>
-                    {currentUser?.id == post?.author && <div className="post-detail__buttons">
+                    {currentUser?.id === post?.author && <div className="post-detail__buttons">
                         <Link to={`/posts/${post?._id}/edit`} className='btn sm primary'>Edit</Link>
                         <DeletePost postId={id} />
                     </div>}
