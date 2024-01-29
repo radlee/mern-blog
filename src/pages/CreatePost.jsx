@@ -10,8 +10,6 @@ function CreatePost() {
   const [category, setCategory] = useState('General');
   const [content, setContent] = useState('');
   const [thumbnail, setThumbnail] = useState('');
-  const [previewSource, setPreviewSource] = useState('');
-  const [selectedFile, setSelectedFile] = useState('');
   const [error, setError] = useState('');
 
   const navigate = useNavigate();
@@ -53,6 +51,7 @@ function CreatePost() {
     postData.set('category', category);
     postData.set('content', content);
     postData.set('thumbnail', thumbnail);
+
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/posts`, postData, { withCredentials: true, headers: { Authorization: `Bearer ${token}` } });
       if (response.status === 201) {
@@ -67,29 +66,9 @@ function CreatePost() {
     setContent(value);
   }, [setContent]);
 
-  const handleFileInputChange = (e) => {
-    const file = e.target.files[0];
-    previewFile(file);
-  }
-
-  const previewFile = (file) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setPreviewSource(reader.result)
-    }
-  }
-
-  const hamdleSubmitFile = (e) => {
-    e.preventDefault();
-    if(!selectedFile) return;
-    uploadImage(previewSource);
-  }
-
-  const uploadImage = (base64EncodedImage) => {
-    console.log(base64EncodedImage)
-  }
-
+  const handleThumbnailChange = (e) => {
+    setThumbnail(e.target.files[0]);
+  };
 
   return (
     <section className="create-post">
@@ -102,11 +81,11 @@ function CreatePost() {
             {POST_CATEGORIES.map(cat => <option key={cat}>{cat}</option>)}
           </select>
           <ReactQuill modules={modules} formats={formats} value={content} onChange={setContentValue} />
-          <input type="file" name="thumbnail" value={thumbnail} onChange={handleFileInputChange} accept="png, jpg, JPG, PNG, jpeg, JPEG, webp" />
+          <input type="file" name="thumbnail" onChange={handleThumbnailChange} accept="png, jpg, JPG, PNG, jpeg, JPEG, webp" />
           <button type='submit' className="btn primary">Publish</button>
         </form>
 
-        { previewSource && <img src={previewSource} alt="img" style={{ height: '300px' }} /> }
+        <img src={''} alt="" style={{ height: '300px' }} />
       </div>
     </section>
   );
