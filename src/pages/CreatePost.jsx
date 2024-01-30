@@ -5,6 +5,8 @@ import { UserContext } from '../context/userContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+
+
 function CreatePost() {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('General');
