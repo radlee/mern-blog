@@ -71,34 +71,20 @@ function CreatePost() {
   
     try {
       const postData = new FormData();
-      postData.append('title', title);
-      postData.append('category', category);
-      postData.append('content', content);
-      postData.append('thumbnail', thumbnail);
+      postData.set('title', title);
+      postData.set('category', category);
+      postData.set('content', content);
+      postData.set('thumbnail', thumbnail); // Set thumbnail as the URL, not the entire image data
   
-      console.log("Request Data --- ", postData);
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/posts`, postData, { withCredentials: true, headers: { Authorization: `Bearer ${token}` } });
   
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/posts`, postData, {
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'multipart/form-data', // Add this header when using FormData
-          Authorization: `Bearer ${token}`,
-        },
-      });
-  
-      console.log("Response from Server --- ", response);
-  
-      if (response.status === 201 && response.data) {
+      if (response.status === 201) {
         return navigate('/');
-      } else {
-        setError('Failed to create the post. Please try again.');
       }
     } catch (err) {
-      setError('Failed to create the post. Please try again.');
-      console.error(err);
+      setError(err.response.data.message);
     }
   };
-  
 
   const setContentValue = useCallback((value) => {
     setContent(value);
