@@ -5,9 +5,9 @@ import { UserContext } from '../context/userContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-
-
 function CreatePost() {
+  const preset_key = 'radmultimedia';
+  const cloud_name = 'dhdc57kw9';
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('General');
   const [content, setContent] = useState('');
@@ -44,18 +44,40 @@ function CreatePost() {
 
   const POST_CATEGORIES = ['Robotics', 'Web Development', 'General', 'Web Of Things', 'Data Science', 'Art', 'Education', 'Design', 'Weather'];
 
+  const handleThumbnailChange = async (e) => {
+    try {
+      const file = e.target.files[0];
+  
+      const imageData = new FormData();
+      imageData.append('file', file);
+      imageData.append('upload_preset', preset_key);
+  
+      // Optional: You can log the formData to ensure it's correct
+      console.log("Form Data --- ", imageData);
+  
+      const response = await axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, imageData);
+      console.log("After Axios --- ", response.data);
+  
+      // SetThumbnail with the Cloudinary URL
+      setThumbnail(response.data.secure_url || '');
+    } catch (error) {
+      console.error(error);
+      // Handle error as needed
+    }
+  };
+
   const createPost = async (e) => {
     e.preventDefault();
-
-    const postData = new FormData();
-
-    postData.set('title', title);
-    postData.set('category', category);
-    postData.set('content', content);
-    postData.set('thumbnail', thumbnail);
-
+  
     try {
+      const postData = new FormData();
+      postData.set('title', title);
+      postData.set('category', category);
+      postData.set('content', content);
+      postData.set('thumbnail', thumbnail); // Set thumbnail as the URL, not the entire image data
+  
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/posts`, postData, { withCredentials: true, headers: { Authorization: `Bearer ${token}` } });
+  
       if (response.status === 201) {
         return navigate('/');
       }
@@ -67,10 +89,6 @@ function CreatePost() {
   const setContentValue = useCallback((value) => {
     setContent(value);
   }, [setContent]);
-
-  const handleThumbnailChange = (e) => {
-    setThumbnail(e.target.files[0]);
-  };
 
   return (
     <section className="create-post">
@@ -87,7 +105,7 @@ function CreatePost() {
           <button type='submit' className="btn primary">Publish</button>
         </form>
 
-        <img src={''} alt="" style={{ height: '300px' }} />
+        <img src={thumbnail} alt="" style={{ height: '300px' }} />
       </div>
     </section>
   );
