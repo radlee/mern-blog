@@ -11,9 +11,15 @@ function CreatePost() {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('General');
   const [content, setContent] = useState('');
-  const [thumbnail, setThumbnail] = useState('');
+  const [thumbnail, setThumbnail] = useState(null);
   const [error, setError] = useState('');
 
+
+  console.log("Title : ", title)
+  console.log("Category : ", category)
+  console.log("Content : ", content)
+  console.log("Themb : ", thumbnail)
+  
   const navigate = useNavigate();
   const { currentUser } = useContext(UserContext);
   const token = currentUser?.token;
@@ -47,13 +53,11 @@ function CreatePost() {
   const handleThumbnailChange = async (e) => {
     try {
       const file = e.target.files[0];
-  
+      setThumbnail(file);
       const imageData = new FormData();
       imageData.append('file', file);
       imageData.append('upload_preset', preset_key);
   
-      // Optional: You can log the formData to ensure it's correct
-      console.log("Form Data --- ", imageData);
   
       const response = await axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, imageData);
       console.log("After Axios --- ", response.data);
@@ -62,21 +66,34 @@ function CreatePost() {
       setThumbnail(response.data.secure_url || '');
     } catch (error) {
       console.error(error);
-      // Handle error as needed
     }
   };
+
+  useEffect(() => {
+    // Create FormData when thumbnailFile is updated
+    if (thumbnail) {
+      const postData = new FormData();
+      postData.append('title', title);
+      postData.append('category', category);
+      postData.append('content', content);
+      postData.append('thumbnail', thumbnail);
+    }
+  }, [thumbnail, title, category, content]);
 
   const createPost = async (e) => {
     e.preventDefault();
   
     try {
       const postData = new FormData();
-      postData.set('title', title);
-      postData.set('category', category);
-      postData.set('content', content);
-      postData.set('thumbnail', thumbnail); // Set thumbnail as the URL, not the entire image data
-  
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/posts`, postData, { withCredentials: true, headers: { Authorization: `Bearer ${token}` } });
+      postData.append('title', title);
+      postData.append('category', category);
+      postData.append('content', content);
+      postData.append('thumbnail', thumbnail); // Set thumbnail as the URL, not the entire image data
+  console.log("Let us see 4563-- ", postData)
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/posts`, postData, { withCredentials: true, headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `Bearer ${token}`
+    } });
   
       if (response.status === 201) {
         return navigate('/');
@@ -95,7 +112,7 @@ function CreatePost() {
       <div className="container">
         <h2>Create a Blog</h2>
         {error && <p className="form__error-message">{error}</p>}
-        <form action="" className="form create-post__form" onSubmit={createPost}>
+        <form className="form create-post__form" encType="multipart/form-data" onSubmit={createPost}>
           <input type="text" placeholder='Title' value={title} onChange={(e) => setTitle(e.target.value)} autoFocus />
           <select name="category" value={category} onChange={(e) => setCategory(e.target.value)}>
             {POST_CATEGORIES.map(cat => <option key={cat}>{cat}</option>)}

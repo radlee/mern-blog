@@ -8,7 +8,7 @@ function PostItem({postID, category, title, content, authorID, thumbnail, create
   return (
     <article className="post">
         <div className="post__thumbnail">
-            <img src={`${process.env.REACT_APP_ASETS_URL}/uploads/${thumbnail}`} alt={title} />
+            <img src={thumbnail} alt={title} />
         </div>
         <div className="post__content">
             <Link to={`/posts/${postID}`}>
