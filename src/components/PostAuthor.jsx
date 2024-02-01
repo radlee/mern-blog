@@ -28,7 +28,7 @@ function PostAuthor({authorID, createdAt}) {
   return (
     <Link to={`/posts/users/${authorID}`} className='post__author'>
         <div className="post__author-avatar">
-            <img src={`${process.env.REACT_APP_ASETS_URL}/uploads/${author?.avatar}`} alt='avatar' />
+            <img src={author?.avatar} alt='avatar' />
         </div>
         <div className="post__author-details">
             <h5>{author.name}</h5>

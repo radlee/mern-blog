@@ -7,7 +7,8 @@ import axios from 'axios';
 
 
 function UserProfile() {
-
+    const preset_key = 'radmultimedia';
+    const cloud_name = 'dhdc57kw9';
     const [avatar, setAvatar] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -28,6 +29,25 @@ function UserProfile() {
         navigate('/login')
         }
     }, []);
+
+    const handleThumbnailChange = async (e) => {
+        try {
+          const file = e.target.files[0];
+          setAvatar(file);
+          const imageData = new FormData();
+          imageData.append('file', file);
+          imageData.append('upload_preset', preset_key);
+      
+      
+          const response = await axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, imageData);
+          console.log("After Edit Axios --- ", response.data);
+      
+          // SetThumbnail with the Cloudinary URL
+          setAvatar(response.data.secure_url || '');
+        } catch (error) {
+          console.error(error);
+        }
+      };
 
     useEffect(() => {
         const getUser = async () => {
@@ -85,11 +105,11 @@ function UserProfile() {
                 <div className="profile__details">
                     <div className="avatar__wrapper">
                         <div className="profile__avatar">
-                            <img src={`${process.env.REACT_APP_ASETS_URL}/uploads/${avatar}`} alt="" />
+                            <img src={avatar} alt="" />
                         </div>
                         {/* Form To Update the Author */}
                         <form className="avatar__form" onSubmit={updateUserDetails}>
-                            <input type="file" name='avatar' id='avatar' onChange={e => setAvatar(e.target.files[0])} accept='png, jpg, jpeg, webp'/>
+                            <input type="file" name='avatar' id='avatar' onChange={handleThumbnailChange} accept='png, jpg, jpeg, webp'/>
                             <label htmlFor='avatar' onClick={() => setAvatar(true)}><FaUserEdit /></label>
                         </form>
                         { isAvatarTouched && <button className="profile__avatar-btn" onClick={ changeAvatarHandler }>
