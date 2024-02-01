@@ -11,8 +11,8 @@ import axios from 'axios';
 function PostDetail() {
     
     const { currentUser } = useContext(UserContext);
-    const { id } = currentUser.id;
-    // const { id } = useParams();
+    // const { id } = currentUser.id;
+    const { id } = useParams();
     const [post, setPost] = useState(null);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -48,7 +48,7 @@ function PostDetail() {
                 </div>
                 <h1>{post.title}</h1>
                 <div className="post-detail__thumbnail">
-                    <img src={`${process.env.REACT_APP_ASETS_URL}/uploads/${post.thumbnail}`} alt="Thumbnail" />
+                    <img src={post.thumbnail} alt="Thumbnail" />
                 </div>
                 <p dangerouslySetInnerHTML={{ __html: post.content }}></p>
             </div> }

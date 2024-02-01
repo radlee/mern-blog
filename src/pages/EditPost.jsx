@@ -6,11 +6,18 @@ import { UserContext } from '../context/userContext';
 import axios from 'axios';
 
 function EditPost() {
+  const preset_key = 'radmultimedia';
+  const cloud_name = 'dhdc57kw9';
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('General');
   const [content, setContent] = useState('');
   const [thumbnail, setThumbnail] = useState('');
   const [error, setError] = useState('');
+
+  console.log('Title ::: ', title)
+  console.log('Category ::: ', category)
+  console.log('Content ::: ', content)
+  console.log('Thumbnail ::: ', thumbnail)
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -43,6 +50,25 @@ function EditPost() {
 
   const POST_CATEGORIES = ['Robotics','I.O.T', 'Art', 'Weather', 'General', 'JavaScript', 'Data Science', 'Design'];
 
+  const handleThumbnailChange = async (e) => {
+    try {
+      const file = e.target.files[0];
+      setThumbnail(file);
+      const imageData = new FormData();
+      imageData.append('file', file);
+      imageData.append('upload_preset', preset_key);
+  
+  
+      const response = await axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, imageData);
+      console.log("After Edit Axios --- ", response.data);
+  
+      // SetThumbnail with the Cloudinary URL
+      setThumbnail(response.data.secure_url || '');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     const getPost = async () => {
 
@@ -62,14 +88,17 @@ function EditPost() {
 
     const postData = new FormData();
 
-    postData.set('title', title);
-    postData.set('category', category);
-    postData.set('content', content);
-    postData.set('thumbnail', thumbnail);
+    postData.append('title', title);
+    postData.append('category', category);
+    postData.append('content', content);
+    postData.append('thumbnail', thumbnail);
 
     try {
-      const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}/posts/${id}`, postData, {withCredentials: true, headers: {Authorization: `Bearer ${token}`}});
-      if(response.status == 200) {
+      const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}/posts/${id}`, postData, {withCredentials: true, headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `Bearer ${token}`
+    }});
+      if(response.status === 200) {
         return navigate('/');
       }
     } catch (err) {
@@ -81,8 +110,8 @@ function EditPost() {
     <section className="create-post">
       <div className="container">
         <h2>Edit and Update a Blog</h2>
-        {error && <p className="form__error-message">{error}</p> }
-        <form className="form create-post__form" onSubmit={ editPost }>
+        {error && <p className="form__error-message">{error.message}</p>}
+        <form className="form create-post__form" encType="multipart/form-data" onSubmit={ editPost }>
           <input type="text" placeholder='Title' value={title} onChange={e => setTitle(e.target.value)} autoFocus />
           <select name="category" value={category} onChange={e => setCategory(e.target.value)}>
             {
@@ -90,7 +119,7 @@ function EditPost() {
             }
           </select>
             <ReactQuill modules={modules} formats={formats} value={content} onChange={setContent}/>
-            <input type="file" onChange={e => setThumbnail(e.target.files[0])} accept='png, jpg, jpeg, webp'/>
+            <input type="file" onChange={handleThumbnailChange} accept='png, jpg, jpeg, webp'/>
           <button type='submit' className="btn primary">Update</button>
         </form>
       </div>

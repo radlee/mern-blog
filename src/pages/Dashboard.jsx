@@ -51,7 +51,7 @@ function Dashboard() {
               return <article key={post.id} className="dashboard__post">
                 <div className="dashboard__post-info">
                   <div className="dashboard__post-thumbnail">
-                    <img src={`{${process.env.REACT_APP_ASETS_URL}/uploads/${post.thumbnail}`} alt={post.name} />
+                    <img src={post.thumbnail} alt={post.name} />
                   </div>
                   <h5>{post.title}</h5>
                 </div>

@@ -14,11 +14,6 @@ function CreatePost() {
   const [thumbnail, setThumbnail] = useState(null);
   const [error, setError] = useState('');
 
-
-  console.log("Title : ", title)
-  console.log("Category : ", category)
-  console.log("Content : ", content)
-  console.log("Themb : ", thumbnail)
   
   const navigate = useNavigate();
   const { currentUser } = useContext(UserContext);
