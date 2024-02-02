@@ -11,7 +11,7 @@
   --color-gray-700: #252542;
   --color-gray-900: #0c0c22; 
   
-  --color-bg: hwb(240 95% 0%);
+  --color-bg: hwb(88 95% 0%);
 
   --transition: all 300ms ease;
   --container-witdh-lg: 84%;
@@ -34,7 +34,7 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: var(--color-bg);
+  background: #FFF;
   font-size: 0.9rem;
   line-height: 1.6;
   color: var(--color-gray-700);
