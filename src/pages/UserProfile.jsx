@@ -15,6 +15,10 @@ function UserProfile() {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
+
+    console.log("Name -- : ", name)
+    console.log("Email -- : ", email)
+    console.log("avatar -- : ", avatar)
     
     const [isAvatarTouched, setIsAvatarTouched] = useState('');
     const [error, setError] = useState('');
