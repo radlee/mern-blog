@@ -17,6 +17,8 @@ function PostDetail() {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
+    console.log("The Post  - ", post)
+
 
     useEffect(() => {
         const getPost = async () => {

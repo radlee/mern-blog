@@ -16,7 +16,7 @@ function PostItem({postID, category, title, content, authorID, thumbnail, create
             </Link>
             <p dangerouslySetInnerHTML={{__html: shortContent }} />
             <div className="post__footer">
-                <PostAuthor authorID={ authorID } createdAt={ createdAt }/>
+                <PostAuthor authorID={ authorID } createdAt={ createdAt } thumbnail={thumbnail}  />
                 <Link to={`/posts/categories/${category}`} className='btn category' >{category}</Link>
             </div>
         </div>

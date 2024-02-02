@@ -15,6 +15,10 @@ function UserProfile() {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
+
+    console.log("Name -- : ", name)
+    console.log("Email -- : ", email)
+    console.log("avatar -- : ", avatar)
     
     const [isAvatarTouched, setIsAvatarTouched] = useState('');
     const [error, setError] = useState('');
@@ -60,19 +64,24 @@ function UserProfile() {
         getUser()
     }, []);
 
-    const changeAvatarHandler = async () => {
-        // e.preventDefault();
-        setIsAvatarTouched(false);
+    const handleThumbnailChange = async (e) => {
         try {
-            const postData = new FormData();
-            postData.set('avatar', avatar);
-            const response = await  axios.post(`${process.env.REACT_APP_BASE_URL}/users/change-avatar`, postData, {withCredentials: true, headers: { Authorization: `Bearer ${token}`}});
-            setAvatar(response?.data.avatar);
+          const file = e.target.files[0];
+          setAvatar(file);
+          const imageData = new FormData();
+          imageData.append('file', file);
+          imageData.append('upload_preset', preset_key);
+      
+      
+          const response = await axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, imageData);
+          console.log("After Axios Profile --- ", response.data);
+      
+          // setAvatar with the Cloudinary URL
+          setAvatar(response.data.secure_url || '');
         } catch (error) {
-            console.log(error);
+          console.error(error);
         }
-
-    }
+      };
 
     const updateUserDetails = async (e) => {
         e.preventDefault();
@@ -81,6 +90,7 @@ function UserProfile() {
             const userData = new FormData();
             userData.set('name', name);
             userData.set('email', email);
+            userData.set('avatar', avatar);
             userData.set('currentPassword', currentPassword);
             userData.set('newPassword', newPassword);
             userData.set('confirmNewPassword', confirmNewPassword);
@@ -112,7 +122,7 @@ function UserProfile() {
                             <input type="file" name='avatar' id='avatar' onChange={handleThumbnailChange} accept='png, jpg, jpeg, webp'/>
                             <label htmlFor='avatar' onClick={() => setAvatar(true)}><FaUserEdit /></label>
                         </form>
-                        { isAvatarTouched && <button className="profile__avatar-btn" onClick={ changeAvatarHandler }>
+                        { isAvatarTouched && <button className="profile__avatar-btn" onClick={ handleThumbnailChange }>
                             <FaCheckCircle  />
                         </button> }
                     </div>

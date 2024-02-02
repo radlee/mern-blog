@@ -77,7 +77,6 @@ function CreatePost() {
 
   const createPost = async (e) => {
     e.preventDefault();
-  
     try {
       const postData = new FormData();
       postData.append('title', title);
