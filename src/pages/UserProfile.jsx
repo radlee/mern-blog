@@ -20,7 +20,7 @@ function UserProfile() {
     console.log("Email -- : ", email)
     console.log("avatar -- : ", avatar)
     
-    const [isAvatarTouched, setIsAvatarTouched] = useState('');
+    const [isAvatarTouched, setIsAvatarTouched] = useState(false);
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
@@ -34,54 +34,17 @@ function UserProfile() {
         }
     }, []);
 
-    const handleThumbnailChange = async (e) => {
-        try {
-          const file = e.target.files[0];
-          setAvatar(file);
-          const imageData = new FormData();
-          imageData.append('file', file);
-          imageData.append('upload_preset', preset_key);
-      
-      
-          const response = await axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, imageData);
-          console.log("After Edit Axios --- ", response.data);
-      
-          // SetThumbnail with the Cloudinary URL
-          setAvatar(response.data.secure_url || '');
-        } catch (error) {
-          console.error(error);
-        }
-      };
-
+    
     useEffect(() => {
         const getUser = async () => {
             const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/users/${currentUser.id}`, {withCredentials: true, headers: {Authorization: `Bearer ${token}`}});
-            const { name, email, avatar } = response.data;
+            const { name, email } = response.data;
             setName(name);
             setEmail(email);
-            setAvatar(avatar);
         }
         getUser()
     }, []);
 
-    const handleThumbnailChange = async (e) => {
-        try {
-          const file = e.target.files[0];
-          setAvatar(file);
-          const imageData = new FormData();
-          imageData.append('file', file);
-          imageData.append('upload_preset', preset_key);
-      
-      
-          const response = await axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, imageData);
-          console.log("After Axios Profile --- ", response.data);
-      
-          // setAvatar with the Cloudinary URL
-          setAvatar(response.data.secure_url || '');
-        } catch (error) {
-          console.error(error);
-        }
-      };
 
     const updateUserDetails = async (e) => {
         e.preventDefault();
@@ -90,7 +53,6 @@ function UserProfile() {
             const userData = new FormData();
             userData.set('name', name);
             userData.set('email', email);
-            userData.set('avatar', avatar);
             userData.set('currentPassword', currentPassword);
             userData.set('newPassword', newPassword);
             userData.set('confirmNewPassword', confirmNewPassword);
@@ -104,6 +66,42 @@ function UserProfile() {
             console.log(error.response.data.message);
         }
     }
+
+    const handleThumbnailChange = async (e) => {
+        try {
+            const file = e.target.files[0];
+            const imageData = new FormData();
+            imageData.append('file', file);
+            imageData.append('upload_preset', preset_key);
+    
+            const response = await axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, imageData);
+            console.log("After Axios --- ", response.data);
+    
+            // Set Avatar with the Cloudinary URL
+            setAvatar(response.data.secure_url || '');
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    
+    const changeAvatarHandler = async () => {
+        setIsAvatarTouched(false);
+        try {
+            
+            // Now you can use the avatar state directly in the postData
+            const postData = new FormData();
+            postData.set('avatar', avatar);
+    
+            const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/users/change-avatar`, postData, { withCredentials: true, headers: { Authorization: `Bearer ${token}` } });
+            
+            // SetAvatar with the Cloudinary URL returned from the API
+            setAvatar(response?.data.avatar);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
+    
 
 
     return (
@@ -120,9 +118,9 @@ function UserProfile() {
                         {/* Form To Update the Author */}
                         <form className="avatar__form" onSubmit={updateUserDetails}>
                             <input type="file" name='avatar' id='avatar' onChange={handleThumbnailChange} accept='png, jpg, jpeg, webp'/>
-                            <label htmlFor='avatar' onClick={() => setAvatar(true)}><FaUserEdit /></label>
+                            <label htmlFor='avatar' onClick={() => setIsAvatarTouched(true)}><FaUserEdit /></label>
                         </form>
-                        { isAvatarTouched && <button className="profile__avatar-btn" onClick={ handleThumbnailChange }>
+                        { isAvatarTouched && <button className="profile__avatar-btn" onClick={ changeAvatarHandler }>
                             <FaCheckCircle  />
                         </button> }
                     </div>

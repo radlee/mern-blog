@@ -8,7 +8,7 @@ import Loader from '../components/Loader';
 function Authors() {
   const [authors, setAuthors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
+console.log('Authors :: ', authors)
   useEffect(() => {
     const getAuthors = async () => {
       setIsLoading(true);
