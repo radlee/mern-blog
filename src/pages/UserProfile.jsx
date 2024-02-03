@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from '../context/userContext';
 import axios from 'axios';
 
+import default_avatar from '../images/avatar_placeholder.webp';
+
 
 function UserProfile() {
     const preset_key = 'radmultimedia';
@@ -16,9 +18,14 @@ function UserProfile() {
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
 
+    const [author, setAuthor] = useState({});
+
+    
+
     console.log("Name -- : ", name)
     console.log("Email -- : ", email)
     console.log("avatar -- : ", avatar)
+    console.log("author -- : ", author)
     
     const [isAvatarTouched, setIsAvatarTouched] = useState(false);
     const [error, setError] = useState('');
@@ -26,6 +33,7 @@ function UserProfile() {
 
     const navigate = useNavigate();
     const { currentUser } = useContext(UserContext);
+    console.log('Current User :: ', currentUser)
     const token = currentUser?.token;
     // Redirect to Home Page for any user who is not logged in
     useEffect(() => {
@@ -33,6 +41,19 @@ function UserProfile() {
         navigate('/login')
         }
     }, []);
+
+    useEffect(() => {
+        const getAuthor = async () => {
+          try{
+            const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/users/${currentUser.id}`);
+            setAuthor(response?.data);
+          } catch (error) {
+            console.log(error)
+          }
+        }
+    
+        getAuthor();
+      }, []);
 
     
     useEffect(() => {
@@ -63,13 +84,29 @@ function UserProfile() {
                 navigate('/logout');
             }
         } catch (error) {
-            console.log(error.response.data.message);
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                console.error("Server responded with an error:", error.response.data.message);
+                setError(error.response.data.message);
+            } else if (error.request) {
+                // The request was made but no response was received
+                console.error("No response received from the server.");
+                setError("No response received from the server. Please try again.");
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.error("Error setting up the request:", error.message);
+                setError("An error occurred. Please try again.");
+            }
         }
     }
 
     const handleThumbnailChange = async (e) => {
         try {
             const file = e.target.files[0];
+            if (!file) {
+                console.error("No file selected.");
+                return;
+            }
             const imageData = new FormData();
             imageData.append('file', file);
             imageData.append('upload_preset', preset_key);
@@ -87,13 +124,10 @@ function UserProfile() {
     const changeAvatarHandler = async () => {
         setIsAvatarTouched(false);
         try {
-            
-            // Now you can use the avatar state directly in the postData
+        
             const postData = new FormData();
             postData.set('avatar', avatar);
-    
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/users/change-avatar`, postData, { withCredentials: true, headers: { Authorization: `Bearer ${token}` } });
-            
             // SetAvatar with the Cloudinary URL returned from the API
             setAvatar(response?.data.avatar);
         } catch (error) {
@@ -112,17 +146,23 @@ function UserProfile() {
 
                 <div className="profile__details">
                     <div className="avatar__wrapper">
-                        <div className="profile__avatar">
-                            <img src={avatar} alt="" />
-                        </div>
+                    <div className="profile__avatar">
+                        {author.avatar ? (
+                            <img src={author?.avatar} alt="User Avatar" />
+                        ) : (
+                            <img src={default_avatar} alt="Default Avatar" />
+                        )}
+                    </div>
                         {/* Form To Update the Author */}
                         <form className="avatar__form" onSubmit={updateUserDetails}>
                             <input type="file" name='avatar' id='avatar' onChange={handleThumbnailChange} accept='png, jpg, jpeg, webp'/>
                             <label htmlFor='avatar' onClick={() => setIsAvatarTouched(true)}><FaUserEdit /></label>
                         </form>
-                        { isAvatarTouched && <button className="profile__avatar-btn" onClick={ changeAvatarHandler }>
-                            <FaCheckCircle  />
-                        </button> }
+                        {isAvatarTouched ? (
+                            <button className="profile__avatar-btn" onClick={changeAvatarHandler}>
+                                <FaCheckCircle />
+                            </button>
+                        ) : null}
                     </div>
                     <h1>{currentUser.name}</h1>
 

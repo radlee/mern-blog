@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import ReactTimeAgo from 'react-time-ago';
 import TimeAgo from 'javascript-time-ago';
-
+import default_avatar from '../images/avatar_placeholder.webp';
 import en from 'javascript-time-ago/locale/en.json';
 import ru from 'javascript-time-ago/locale/ru.json';
 
@@ -28,7 +28,13 @@ function PostAuthor({authorID, createdAt}) {
   return (
     <Link to={`/posts/users/${authorID}`} className='post__author'>
         <div className="post__author-avatar">
-            <img src={author?.avatar} alt='avatar' />
+       
+        {author?.avatar ? (
+          <img src={author?.avatar} alt="User Avatar" />
+          ) : (
+            // Provide a default or placeholder avatar image here
+          <img src={default_avatar} alt='avatar' />
+          )}
         </div>
         <div className="post__author-details">
             <h5>{author.name}</h5>
