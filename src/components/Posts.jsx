@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PostItem from './PostItem';
 import Loader from '../components/Loader';
 import axios from 'axios';
+import Categories from './Categories'
 
 function Posts() {
   const [posts, setPosts] = useState([]);
@@ -27,6 +28,7 @@ function Posts() {
 
   return (
     <section className="posts">
+       <Categories />
        {posts.length > 0 ? <div className="container posts__container">
         {
           posts.map(({_id: id, thumbnail, category, title, content, author, createdAt}) => 

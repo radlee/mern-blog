@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../context/userContext';
 
@@ -10,6 +10,9 @@ function Login() {
         email: '',
         password: '',
     });
+
+    const location = useLocation();
+    const successMessage = location.state?.message || null;
 
     const [error, setError] = useState('');
     const navigate = useNavigate();
@@ -42,6 +45,7 @@ function Login() {
                     <h2>Login</h2>
                     <form action="" className="form login__form" onSubmit={loginUser}>
                          { error && <p className="form__error-message">{error}</p> }
+                         {successMessage && <p className="form__success-message" >{successMessage}</p>}
                          <input type="email" placeholder='Email' name='email' value={userData.email} onChange={changeInputHandler} autoFocus/>
                          <input type="password" placeholder='Password' name='password' value={userData.password} onChange={changeInputHandler}/>
                          <button type='submit' className="btn primary">Login</button>

@@ -1,22 +1,28 @@
-import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
-import Logo from '../images/logo.png'
+import React, { useContext, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Logo from '../images/logo.png';
 import { FaBars } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 
 import { UserContext } from '../context/userContext';
 
 function Header() {
-    const [isNavShowing, setIsNavShowing] = useState(window.innerWidth > 800 ? true: false)
+    const [isNavShowing, setIsNavShowing] = useState(window.innerWidth > 800 ? true : false);
     const { currentUser } = useContext(UserContext);
 
+    useEffect(() => {
+        // Listen for changes in currentUser and update the state accordingly
+        setIsNavShowing(window.innerWidth > 800 ? true : false);
+    }, [currentUser]);
+
     const closeNavHandler = () => {
-        if(window.innerWidth < 800) {
+        if (window.innerWidth < 800) {
             setIsNavShowing(false);
         } else {
-            setIsNavShowing(true)
+            setIsNavShowing(true);
         }
-    }
+    };
+
     return (
         <nav>
             <div className='container nav__container'>
@@ -28,17 +34,17 @@ function Header() {
                     <li><Link to='/create' onClick={closeNavHandler}>Create Post</Link></li>
                     <li><Link to='/authors' onClick={closeNavHandler}>Authors</Link></li>
                     <li><Link to='/logout' onClick={closeNavHandler}>Logout</Link></li>
-                </ul> }
+                </ul>}
                 {!currentUser?.id && isNavShowing && <ul className='nav__menu'>
                     <li><Link to='/authors' onClick={closeNavHandler}>Authors</Link></li>
                     <li><Link to='/login' onClick={closeNavHandler}>Login</Link></li>
-                </ul> }
+                </ul>}
                 <button className='nav__toggle-btn' onClick={() => setIsNavShowing(!isNavShowing)}>
-                {isNavShowing ? <AiOutlineClose /> : <FaBars />}
+                    {isNavShowing ? <AiOutlineClose /> : <FaBars />}
                 </button>
             </div>
         </nav>
-    )
+    );
 }
 
-export default Header
+export default Header;

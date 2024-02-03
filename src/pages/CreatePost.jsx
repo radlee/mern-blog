@@ -43,7 +43,7 @@ function CreatePost() {
     'link', 'image', 'video'
   ];
 
-  const POST_CATEGORIES = ['Robotics', 'Web Development', 'General', 'Web Of Things', 'Data Science', 'Art', 'Education', 'Design', 'Weather'];
+  const POST_CATEGORIES = ['Robotics','Technology', 'Business', 'Literature', 'General', 'Data Link', 'Life Style', 'Design'];
 
   const handleThumbnailChange = async (e) => {
     try {

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function Footer() {
+function Categories() {
     return (
-        <footer>
+        <footer className="catse">
             <ul className="footer__categories">
                 <li><Link to='posts/categories/Robotics'>Robotics</Link></li>
                 <li><Link to='posts/categories/Technology'>Technology</Link></li>
@@ -14,11 +14,9 @@ function Footer() {
                 <li><Link to='posts/categories/General'>General</Link></li>
                 <li><Link to='posts/categories/Design'>Design</Link></li>
             </ul>
-            <div className="footer__copyright">
-                <small>All Rights Reserved &copy; Copyright, radBlok Multimedia</small>
-            </div>
+            <div className="footer__copyright"></div>
         </footer>
     )
 }
 
-export default Footer;
+export default Categories;
