@@ -1,5 +1,5 @@
 {
-  "short_name": "React App",
+  "short_name": "radblok",
   "name": "radblok - Multimedia",
   "icons": [
     {
@@ -19,7 +19,7 @@
     }
   ],
   "display": "standalone",
-  "start_url": "./index.html",
+  "start_url": "./",
   "theme_color": "#000000",
   "background_color": "#ffffff"
 }
