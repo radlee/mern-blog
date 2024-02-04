@@ -5,6 +5,7 @@
   --color-white: hsl(0, 0%, 100%);
   --color-red: rgb(255, 63, 63);
   --color-green: rgb(12, 200, 6);
+  --color-cats: #fdfdfd;
   --color-gray-100: hsl(220, 20%, 10%, 5%);
   --color-gray-200: hsl(220, 20%, 10%, 10%);
   --color-gray-300: hsl(220, 20%, 10%, 25%);
@@ -181,6 +182,12 @@ nav {
 
 footer {
   background: var(--color-gray-900);
+  margin-top: 6rem;
+  padding-top: 6rem;
+}
+
+footer.cats {
+  background: var(--color-cats);
   margin-top: 6rem;
   padding-top: 6rem;
 }

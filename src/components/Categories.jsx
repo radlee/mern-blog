@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 function Categories() {
     return (
-        <footer className="catse">
+        <footer className="cats">
             <ul className="footer__categories">
                 <li><Link to='posts/categories/Robotics'>Robotics</Link></li>
                 <li><Link to='posts/categories/Technology'>Technology</Link></li>
