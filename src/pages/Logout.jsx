@@ -14,7 +14,7 @@ function Logout() {
                 // For example, you might want to make an API call to log out on the server
 
                 // Uncomment the following lines if you have a server-side logout endpoint
-                // await axios.post('/api/logout');
+                await axios.post('/api/logout');
 
                 // Clear the user context
                 setCurrentUser(null);

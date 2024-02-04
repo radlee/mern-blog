@@ -11,14 +11,13 @@ import axios from 'axios';
 function PostDetail() {
     
     const { currentUser } = useContext(UserContext);
-    // const { id } = currentUser.id;
+    const { cu_id } = currentUser.id;
     const { id } = useParams();
+    console.log("Params id : ", id)
+    console.log("Current User id : ", cu_id)
     const [post, setPost] = useState(null);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-
-    console.log("The Post  - ", post)
-
 
     useEffect(() => {
         const getPost = async () => {
