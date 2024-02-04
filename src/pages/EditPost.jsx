@@ -128,6 +128,8 @@ function EditPost() {
             <ReactQuill modules={modules} formats={formats} value={content} onChange={setContent}/>
             <input type="file" onChange={handleThumbnailChange} accept='png, jpg, jpeg, webp'/>
           <button type='submit' className="btn primary">Update</button>
+          <br />
+          <br />
         </form>
       </div>
     </section>
