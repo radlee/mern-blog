@@ -43,7 +43,7 @@ function CreatePost() {
     'link', 'image', 'video'
   ];
 
-  const POST_CATEGORIES = ['Robotics','Technology', 'Business', 'Literature', 'General', 'Data Link', 'Life Style', 'Design'];
+  const POST_CATEGORIES = ['Technology', 'Business', 'Literature', 'General', 'Life Style', 'Design', 'Sports'];
 
   const handleThumbnailChange = async (e) => {
     try {
@@ -115,6 +115,7 @@ function CreatePost() {
           <ReactQuill modules={modules} formats={formats} value={content} onChange={setContentValue} />
           <input type="file" name="thumbnail" onChange={handleThumbnailChange} accept="png, jpg, JPG, PNG, jpeg, JPEG, webp" />
           <button type='submit' className="btn primary">Publish</button>
+          <br />
         </form>
       </div>
     </section>
