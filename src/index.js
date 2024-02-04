@@ -52,6 +52,6 @@ root.render(
   </React.StrictMode>
 );
 
-registerServiceWorker.register();
+registerServiceWorker();
 
 reportWebVitals();

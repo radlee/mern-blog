@@ -105,6 +105,7 @@ function CreatePost() {
     <section className="create-post">
       <div className="container">
         <h2>Create a Blog</h2>
+        <img src={thumbnail} alt="" style={{ height: '300px' }} />
         {error && <p className="form__error-message">{error}</p>}
         <form className="form create-post__form" encType="multipart/form-data" onSubmit={createPost}>
           <input type="text" placeholder='Title' value={title} onChange={(e) => setTitle(e.target.value)} autoFocus />
@@ -115,8 +116,6 @@ function CreatePost() {
           <input type="file" name="thumbnail" onChange={handleThumbnailChange} accept="png, jpg, JPG, PNG, jpeg, JPEG, webp" />
           <button type='submit' className="btn primary">Publish</button>
         </form>
-
-        <img src={thumbnail} alt="" style={{ height: '300px' }} />
       </div>
     </section>
   );

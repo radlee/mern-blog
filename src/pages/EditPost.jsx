@@ -71,17 +71,18 @@ function EditPost() {
 
   useEffect(() => {
     const getPost = async () => {
-
       try {
         const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/${id}`);
         setTitle(response.data.title);
         setContent(response.data.content);
+        setCategory(response.data.category); // Set the category from the response
+        setThumbnail(response.data.thumbnail); // Set the thumbnail from the response
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     }
     getPost();
-  }, []);
+  }, [id]);
 
   const editPost = async (e) => {
     e.preventDefault();
@@ -110,14 +111,20 @@ function EditPost() {
     <section className="create-post">
       <div className="container">
         <h2>Edit and Update a Blog</h2>
+        <img src={thumbnail} alt="" style={{ height: '300px' }} />
         {error && <p className="form__error-message">{error.message}</p>}
         <form className="form create-post__form" encType="multipart/form-data" onSubmit={ editPost }>
           <input type="text" placeholder='Title' value={title} onChange={e => setTitle(e.target.value)} autoFocus />
+          
+
           <select name="category" value={category} onChange={e => setCategory(e.target.value)}>
-            {
-              POST_CATEGORIES.map(cat => <option key={cat}>{cat}</option>)
-            }
+            {POST_CATEGORIES.map(cat => (
+              <option key={cat} selected={cat === category}>
+                {cat}
+              </option>
+            ))}
           </select>
+
             <ReactQuill modules={modules} formats={formats} value={content} onChange={setContent}/>
             <input type="file" onChange={handleThumbnailChange} accept='png, jpg, jpeg, webp'/>
           <button type='submit' className="btn primary">Update</button>
