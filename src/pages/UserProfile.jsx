@@ -97,25 +97,37 @@ function UserProfile() {
         }
     };
 
-    const handleThumbnailChange = async (e) => {
+    const handleThumbnailChange = (e) => {
+        const file = e.target.files[0];
+        if (!file) {
+            console.error('No file selected.');
+            return;
+        }
+    
+        // Create a temporary URL for the selected image
+        const tempImageUrl = URL.createObjectURL(file);
+    
+        // Set the temporary URL as the source for the image tag
+        setAvatar(tempImageUrl);
+    
+        // Now, you can proceed with uploading the image to the server
         try {
-            const file = e.target.files[0];
-            if (!file) {
-                console.error('No file selected.');
-                return;
-            }
             const imageData = new FormData();
             imageData.append('file', file);
             imageData.append('upload_preset', preset_key);
-
-            const response = await axios.post(
-                `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
-                imageData
-            );
-            console.log('After Axios --- ', response.data);
-
-            // Set Avatar with the Cloudinary URL
-            setAvatar(response.data.secure_url || '');
+    
+            axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, imageData)
+                .then((response) => {
+                    console.log('After Axios --- ', response.data);
+                    // Set Avatar with the Cloudinary URL
+                    setAvatar(response.data.secure_url || '');
+    
+                    // You can optionally reset the file input value to allow selecting the same file again
+                    e.target.value = null;
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         } catch (error) {
             console.error(error);
         }
