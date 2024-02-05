@@ -25,6 +25,10 @@ function UserProfile() {
     const { currentUser } = useContext(UserContext);
     const token = currentUser?.token;
 
+    console.log('Avatar -- ', avatar)
+    console.log('Name -- ', name)
+    console.log('Email -- ', email)
+
     useEffect(() => {
         if (!token) {
             navigate('/login');
