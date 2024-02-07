@@ -58,13 +58,27 @@ function Posts() {
         <h2 className="center">No Posts Published</h2>
       )}
       <div className="pagination">
+        
         <button disabled={currentPage === 1} onClick={handlePrevious}>
           Previous
         </button>
+          {/* Additional pagination options on the left */}
+          {Array.from({ length: Math.min(currentPage - 1, 4) }, (_, i) => (
+          <button key={i} onClick={() => setCurrentPage(currentPage - i - 1)}>
+            {currentPage - i - 1}
+          </button>
+        ))}
         <span>Page {currentPage} of {totalPages}</span>
         <button disabled={currentPage === totalPages} onClick={handleNext}>
           Next
         </button>
+      
+        {/* Additional pagination options on the right */}
+        {Array.from({ length: Math.min(totalPages - currentPage, 4) }, (_, i) => (
+          <button key={i} onClick={() => setCurrentPage(currentPage + i + 1)}>
+            {currentPage + i + 1}
+          </button>
+        ))}
       </div>
     </section>
   );
