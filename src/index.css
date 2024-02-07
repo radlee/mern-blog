@@ -9,6 +9,10 @@
   --color-gray-200: hsl(220, 20%, 10%, 10%);
   --color-gray-300: hsl(220, 20%, 10%, 25%);
   --color-gray-500: hsl(220, 20%, 10%, 50%);
+  --color-gray-600: #333333;
+  --color-gray-500: #555555;
+  --color-orange-dark: #FF5733; /* Darkish orange color */
+  --color-orange: #FF7043; /* Lighter orange color */
   --color-gray-700: #252542;
   --color-gray-900: #0c0c22; 
   
@@ -29,16 +33,17 @@
 
 .pagination {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* Center the content horizontally */
   align-items: center;
   margin-top: 10px;
   padding: 30px;
 }
 
 .pagination button {
+  margin: 0 5px; /* Adjust margin to bring buttons closer together */
   padding: 8px 12px;
   font-size: 14px;
-  background-color: #3498db;
+  background-color: var(--color-gray-600);
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -46,13 +51,27 @@
 }
 
 .pagination button:hover {
-  background-color: #2980b9;
+  background-color: var(--color-gray-500);
 }
 
 .pagination span {
   font-size: 14px;
   font-weight: bold;
   color: #333;
+}
+
+#counter {
+  background-color: var(--color-orange-dark); /* Darkish orange color */
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#counter:hover {
+  background-color: var(--color-orange); /* Lighter orange color on hover */
 }
 
 
