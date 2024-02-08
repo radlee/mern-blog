@@ -4,7 +4,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Loader from '../components/Loader';
 
-function DeletePost({postID: id}) {
+function DeletePost({postId: id}) {
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -20,22 +20,25 @@ function DeletePost({postID: id}) {
         }
     }, []);
 
-    const removePost = async () => {
+    const removePost = async (postId) => {
         setIsLoading(true);
         try {
-            const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}/posts/${id}`, {withCredentials: true, headers: { Authorization: `Bearer ${token}`}})
-            if(response.status === 200) {
-                if(location.pathname === `/myposts/${currentUser.id}`) {
-                    navigate(0) //Refresh Page
+            const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}/posts/${postId}`, {
+                withCredentials: true,
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            if (response.status === 200) {
+                if (location.pathname === `/myposts/${currentUser.id}`) {
+                    navigate(0); // Refresh Page
                 } else {
                     navigate('/');
                 }
             }
             setIsLoading(false);
         } catch (error) {
-            console.log('Could not delete post.', error)
+            console.log('Could not delete post.', error);
         }
-    }
+    };
     if(isLoading) {
         return <Loader />
     }

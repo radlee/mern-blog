@@ -15,7 +15,7 @@ function Posts() {
       try {
         const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts?page=${currentPage}`);
         setPosts(response?.data.posts);
-        setTotalPages(Math.ceil(response?.data.total / 10)); // Assuming page_size is always 10
+        setTotalPages(Math.ceil(response?.data.total / 9)); // Assuming page_size is always 10
       } catch (err) {
         console.log(err);
       }

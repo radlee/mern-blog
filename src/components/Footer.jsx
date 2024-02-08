@@ -5,14 +5,15 @@ function Footer() {
     return (
         <footer>
             <ul className="footer__categories">
-                <li><Link to='posts/categories/Robotics'>Robotics</Link></li>
                 <li><Link to='posts/categories/Technology'>Technology</Link></li>
-                <li><Link to='posts/categories/Business'>Business</Link></li>
-                <li><Link to='posts/categories/Literature'>Literature</Link></li>
-                <li><Link to='posts/categories/Data Link'>Data Link</Link></li>
-                <li><Link to='posts/categories/Life Style'>Life Style</Link></li>
+                <li><Link to='posts/categories/Health and Wellness'>Health and Wellness</Link></li>
+                <li><Link to='posts/categories/Personal Development'>Personal Development</Link></li>
+                <li><Link to='posts/categories/Travel'>Travel</Link></li>
+                <li><Link to='posts/categories/Finance'>Finance</Link></li>
+                <li><Link to='posts/categories/Lifestyle'>Lifestyle</Link></li>
                 <li><Link to='posts/categories/General'>General</Link></li>
-                <li><Link to='posts/categories/Design'>Design</Link></li>
+                <li><Link to='posts/categories/Food and Cooking'>Food and Cooking</Link></li>
+                <li><Link to='posts/categories/Career and Business'>Career and Business</Link></li>
             </ul>
             <div className="footer__copyright">
                 <small>All Rights Reserved &copy; Copyright, radBlok Multimedia</small>

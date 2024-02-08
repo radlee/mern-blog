@@ -48,7 +48,7 @@ function EditPost() {
     'link', 'image', 'video'
   ]
 
-  const POST_CATEGORIES = ['Technology', 'Business', 'Literature', 'General', 'Life Style', 'Design', 'Sports']
+  const POST_CATEGORIES = ['Technology','Health and Wellness', 'Personal Development', 'Literature', 'Personal Development', 'Career and Business', 'Life Style', 'Finance', 'Food and Cooking']
 
   const handleThumbnailChange = async (e) => {
     try {
