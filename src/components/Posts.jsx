@@ -79,14 +79,10 @@ function Posts() {
             Next
           </button>
         </div>
-
+        <hr />
         <div className='pageteller'>
           <button id='counter'>Page {currentPage} of {totalPages}</button>
         </div>
-        <br />
-        <br />
-
-
       </div>
     </section>
   );

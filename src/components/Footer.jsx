@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 function Footer() {
     return (
         <footer>
+             <h2 className="category_header">Featured Categories</h2>
             <ul className="footer__categories">
                 <li><Link to='posts/categories/Technology'>Technology</Link></li>
                 <li><Link to='posts/categories/Health and Wellness'>Health and Wellness</Link></li>
