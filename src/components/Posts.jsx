@@ -83,6 +83,8 @@ function Posts() {
         <div className='pageteller'>
           <button id='counter'>Page {currentPage} of {totalPages}</button>
         </div>
+        <br />
+        <br />
 
 
       </div>
