@@ -57,28 +57,34 @@ function Posts() {
       ) : (
         <h2 className="center">No Posts Published</h2>
       )}
-        <div className="pagination">
-        <button disabled={currentPage === 1} onClick={handlePrevious}>
-          Previous
-        </button>
-        {/* Additional pagination options on the left */}
-        {Array.from({ length: Math.min(currentPage - 1, 4) }, (_, i) => (
-          <button key={i} onClick={() => setCurrentPage(currentPage - i - 1)}>
-            {currentPage - i - 1}
+        <div className="warpper">
+          <div className="pagination">
+          <button disabled={currentPage === 1} onClick={handlePrevious}>
+            Prev
           </button>
-        ))}
-        <div className='pageteller'>
-          <button id='counter'>{currentPage} of {totalPages}</button>
+          {/* Additional pagination options on the left */}
+          {Array.from({ length: Math.min(currentPage - 1, 4) }, (_, i) => (
+            <button key={i} onClick={() => setCurrentPage(currentPage - i - 1)}>
+              {currentPage - i - 1}
+            </button>
+          ))}
+          
+          {/* Additional pagination options on the right */}
+          {Array.from({ length: Math.min(totalPages - currentPage, 4) }, (_, i) => (
+            <button key={i} onClick={() => setCurrentPage(currentPage + i + 1)}>
+              {currentPage + i + 1}
+            </button>
+          ))}
+          <button disabled={currentPage === totalPages} onClick={handleNext}>
+            Next
+          </button>
         </div>
-        {/* Additional pagination options on the right */}
-        {Array.from({ length: Math.min(totalPages - currentPage, 4) }, (_, i) => (
-          <button key={i} onClick={() => setCurrentPage(currentPage + i + 1)}>
-            {currentPage + i + 1}
-          </button>
-        ))}
-        <button disabled={currentPage === totalPages} onClick={handleNext}>
-          Next
-        </button>
+
+        <div className='pageteller'>
+          <button id='counter'>Page {currentPage} of {totalPages}</button>
+        </div>
+
+
       </div>
     </section>
   );
