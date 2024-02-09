@@ -58,7 +58,7 @@ function Dashboard() {
                 <div className="dashboard__container-actions">
                   <Link to={`/posts/${post._id}`} className="btn sm">View</Link>
                   <Link to={`/posts/${post._id}/edit`} className="btn sm primary">Edit</Link>
-                  <DeletePost postID={post._id} />
+                  <DeletePost postId={post._id} />
                 </div>
               </article>
             })
