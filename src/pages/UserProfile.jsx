@@ -160,7 +160,7 @@ function UserProfile() {
         <div>
             <section className="profile">
                 <div className="container profile__container">
-                    <Link to={`/myposts/${currentUser.id}`} className="btn">
+                    <Link to={`/myposts/${currentUser.id}`} className="btn btn-my-posts">
                         My Posts
                     </Link>
 
@@ -231,6 +231,7 @@ function UserProfile() {
                             <button type="submit" className="btn primary">
                                 Update Details
                             </button>
+                            <br />
                         </form>
                     </div>
                 </div>
