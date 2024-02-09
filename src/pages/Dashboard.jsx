@@ -47,8 +47,8 @@ function Dashboard() {
       {
         posts.length ? <div className="container dashboard__container">
           {
-            posts.map(post => {
-              return <article key={post.id} className="dashboard__post">
+            posts.map((post, index) => {
+              return <article key={index} className="dashboard__post">
                 <div className="dashboard__post-info">
                   <div className="dashboard__post-thumbnail">
                     <img src={post.thumbnail} alt={post.name} />
