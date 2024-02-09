@@ -119,7 +119,7 @@ function EditPost() {
 
           <select name="category" value={category} onChange={e => setCategory(e.target.value)}>
             {POST_CATEGORIES.map(cat => (
-              <option key={cat} selected={cat === category}>
+              <option key={cat} value={cat}>
                 {cat}
               </option>
             ))}
