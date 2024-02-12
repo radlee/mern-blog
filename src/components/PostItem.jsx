@@ -19,8 +19,8 @@ function PostItem({postID, category, title, content, authorID, thumbnail, create
                 <PostAuthor authorID={ authorID } createdAt={ createdAt } thumbnail={thumbnail}  />
                 <Link to={`/posts/categories/${category}`} className='btn category' >{category}</Link>
             </div>
-            
         </div>
+        <div class="fb-comments" data-href="https://radblokmultimedia.onrender.com" data-width="" data-numposts="5"></div>
     </article>
   )
 }
