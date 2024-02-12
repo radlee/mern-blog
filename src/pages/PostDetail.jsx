@@ -52,8 +52,8 @@ function PostDetail() {
                     <img src={post.thumbnail} alt="Thumbnail" />
                 </div>
                 <p dangerouslySetInnerHTML={{ __html: post.content }}></p>
-            </div> }
             <div class="fb-comments" data-href="https://radblokmultimedia.onrender.com" data-width="" data-numposts="5"></div>
+            </div> }
         </section>
     )
 }
