@@ -11,10 +11,10 @@ import axios from 'axios';
 function PostDetail() {
     
     const { currentUser } = useContext(UserContext);
-    const { cu_id } = currentUser.id;
+    // const { cu_id } = currentUser.id;
     const { id } = useParams();
     console.log("Params id : ", id)
-    console.log("Current User id : ", cu_id)
+    // console.log("Current User id : ", cu_id)
     const [post, setPost] = useState(null);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -53,6 +53,8 @@ function PostDetail() {
                 </div>
                 <p dangerouslySetInnerHTML={{ __html: post.content }}></p>
             </div> }
+            <div class="fb-comments" data-href="https://radblokmultimedia.onrender.com" data-width="" data-numposts="5"></div>
+            
         </section>
     )
 }
