@@ -36,7 +36,7 @@ function PostDetail() {
     return <p className="error">{error.message}</p>;
   }
 
-  const disqusShortname = 'radblokmultimedia';
+  const disqusShortname = 'https-radblokmultimedia-onrender-com';
 
   const disqusConfig = {
     url: `https://radblokmultimedia.onrender.com/posts/${id}`, // Adjust the URL
