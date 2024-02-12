@@ -1,47 +1,63 @@
 {
-  "short_name": "radBlok",
   "name": "radBlok - Blogger's Republic",
+  "short_name": "radBlok",
+  "description": "",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0c0c22",
   "icons": [
     {
       "src": "maskable.png",
       "sizes": "196x196",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
       "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon",
-      "purpose": "any maskable"
+      "type": "image/x-icon"
     },
     {
       "src": "logo192.png",
-      "type": "image/png",
       "sizes": "192x192",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
       "src": "logo512.png",
-      "type": "image/png",
       "sizes": "512x512",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
       "src": "logo256.png",
-      "type": "image/png",
       "sizes": "256x256",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
       "src": "logo384.png",
-      "type": "image/png",
       "sizes": "384x384",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff",
-  "prefer_related_applications": true
+  "categories": ["general", "technology", "news", "sports", "health", "travel", "music", "lifestyle", "business", "education"],
+  "screenshots": [
+    {
+      "src": "screenshots/screenshot1.jpg",
+      "sizes": "1280x720",
+      "type": "image/png"
+    },
+    {
+      "src": "screenshots/screenshot2.jpg",
+      "sizes": "1280x720",
+      "type": "image/png"
+    }
+  ],
+  "orientation": "portrait",
+  "prefer_related_applications": true,
+  "related_applications": [],
+  "permissions": ["geolocation"],
+  "serviceworker": {
+    "src": "service-worker.js",
+    "scope": "/"
+  },
+  "lang": "en-US"
 }

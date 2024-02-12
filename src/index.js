@@ -18,9 +18,8 @@ import Dashboard from './pages/Dashboard';
 import Logout from './pages/Logout';
 import DeletePost from './pages/DeletePost';
 import UserProvider from './context/userContext';
-import { register } from './serviceWorkerRegistration';
-import reportWebVitals from './reportWebVitals';
-
+import reportWebVitals from "./reportWebVitals";
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -52,6 +51,5 @@ root.render(
   </React.StrictMode>
 );
 
-register();
-
+serviceWorkerRegistration.register();
 reportWebVitals();

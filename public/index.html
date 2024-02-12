@@ -9,7 +9,7 @@
       name="description"
       content="radmultimedia"
     />
-
+    <meta name="theme-color" content="#0c0c22"/>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta property="og:site_name" content="radBlok - Creative Writing">
@@ -49,8 +49,39 @@
     <title>radmultimedia</title>
   </head>
   <body>
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0&appId=1448959428567376" nonce="OAaepQSu"></script>
+    <button id="installButton">Install</button>
+    <script>
+      let deferredPrompt;
+
+      window.addEventListener('beforeinstallprompt', (event) => {
+        // Prevent Chrome 67 and earlier from automatically showing the prompt
+        event.preventDefault();
+        // Stash the event so it can be triggered later.
+        deferredPrompt = event;
+        // Update UI to notify the user they can add to home screen
+        showInstallPromotion();
+      });
+
+      function showInstallPromotion() {
+        // Display the install banner or button here
+        // For example, you could show a button with an "Install" label
+        const installButton = document.getElementById('installButton');
+        installButton.style.display = 'block';
+        installButton.addEventListener('click', () => {
+          // Show the prompt
+          deferredPrompt.prompt();
+          // Wait for the user to respond to the prompt
+          deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+              console.log('User accepted the install prompt');
+            } else {
+              console.log('User dismissed the install prompt');
+            }
+            deferredPrompt = null;
+          });
+        });
+      }
+  </script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
   </body>
