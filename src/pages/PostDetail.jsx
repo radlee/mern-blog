@@ -66,6 +66,7 @@ function PostDetail() {
           <p dangerouslySetInnerHTML={{ __html: post.content }}></p>
         </div>
       )}
+      <br />
       <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
     </section>
   );
