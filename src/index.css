@@ -31,6 +31,10 @@
 .post-detail__container {
   margin-bottom: 50px;
 }
+
+.disqus {
+  padding: 20px;
+}
 /* Pagination */
 
 .pageteller {

@@ -67,7 +67,9 @@ function PostDetail() {
         </div>
       )}
       <br />
-      <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
+      <div className='disqus'>
+        <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
+      </div>
     </section>
   );
 }
