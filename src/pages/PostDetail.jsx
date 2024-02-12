@@ -3,7 +3,7 @@ import PostAuthor from '../components/PostAuthor';
 import { Link, useParams } from 'react-router-dom';
 import Loader from '../components/Loader';
 import DeletePost from './DeletePost';
-
+import Disqus from "disqus-react"
 import { UserContext } from '../context/userContext';
 import axios from 'axios';
 
@@ -36,6 +36,14 @@ function PostDetail() {
     if(isLoading) {
         return <Loader />
     }
+    const disqusShortname = "radblokmultimedia";
+
+    const disqusConfig = {
+        url: "https://radblokmultimedia.onrender.com",
+        identifier: `${id}`,
+        title: `${post.title}`
+      }
+
     return (
         <section className="post-detail">
             {error && <p className='error'>{error}</p>}
@@ -53,7 +61,10 @@ function PostDetail() {
                 </div>
                 <p dangerouslySetInnerHTML={{ __html: post.content }}></p>
             </div> }
-            <div class="fb-comments" data-href="https://radblokmultimedia.onrender.com" data-width="" data-numposts="5"></div>
+            <Disqus.DiscussionEmbed
+          shortname={disqusShortname}
+          config={disqusConfig}
+        />
         </section>
     )
 }
