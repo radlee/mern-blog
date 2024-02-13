@@ -69,4 +69,8 @@ self.addEventListener('message', (event) => {
   }
 });
 
+self.addEventListener('beforeinstallprompt', (event) => {
+  console.log('beforeinstallprompt event fired', event);
+});
+
 // Any other custom service worker logic can go here.
