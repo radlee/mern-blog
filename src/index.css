@@ -440,6 +440,7 @@ input, select, textarea {
   margin-inline: auto;
   height: calc(100vh - 12rem);
   display: grid;
+  padding-bottom: 863px;
   place-items: center;
 }
 
@@ -723,6 +724,10 @@ input, select, textarea {
     width: 100%;
   }
 
+  .create-post {
+    margin-bottom: 410px !important; /* Add margin to create space between the editor and the footer */
+    padding-bottom: 480px !important; /* Add padding to create space for the editor */
+  }
 
   .authors__container {
     grid-template-columns: 1fr;
@@ -758,4 +763,18 @@ input, select, textarea {
 .loader__image {
   width: 4.5rem;
   aspect-ratio: 1/1;
+}
+
+@media screen and (max-width: 768px) {
+  .create-post {
+    margin-bottom: 410px !important; /* Adjust margin for smaller screens */
+    padding-bottom: 480px !important; /* Adjust padding for smaller screens */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .create-post {
+    margin-bottom: 412px !important;
+    padding-bottom: 483px !important;
+}
 }
