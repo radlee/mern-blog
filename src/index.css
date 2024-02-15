@@ -518,8 +518,9 @@ input, select, textarea {
 }
 
 .profile__details {
-  max-width: 400px; /* Adjust the max-width as needed */
   margin: 0 auto;
+  width: 500px;
+  max-width: 480px;
 }
 
 .avatar__wrapper {
