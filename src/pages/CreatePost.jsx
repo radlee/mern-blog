@@ -41,7 +41,7 @@ function CreatePost() {
 
   const formats = [
     'header',
-    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block',
     'list', 'bullet', 'indent',
     'link', 'image', 'video'
   ];
