@@ -38,6 +38,7 @@ function EditPost() {
       [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
       ['link', 'image', 'video'],
       ['clean'],
+      ['color', 'background', 'script', 'font', 'size', 'align', 'direction', 'code', 'formula']
     ]
   }
 
@@ -45,7 +46,9 @@ function EditPost() {
     'header',
     'bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block',
     'list', 'bullet', 'indent',
-    'link', 'image', 'video'
+    'link', 'image', 'video',
+    'color', 'background', 'script', 'font', 'size', 'align', 'direction',
+    'code', 'formula', 'clean'
   ]
 
   const POST_CATEGORIES = ['General','Health and Wellness', 'Technology', 'Personal Development', 'Finance', 'Career and Business', 'Travel', 'Lifestyle','Food and Cooking']

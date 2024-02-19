@@ -28,14 +28,12 @@ function CreatePost() {
 
   const modules = {
     toolbar: [
-      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block','formula'],
-      [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+      [{'header': [1, 2, 3, 4, 5, 6, false]}],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block', 'formula'],
+      [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
       ['link', 'image', 'video'],
-      [{ 'color': [] }, { 'background': [] }],    
-      [{ 'font': [] }],
-      [{ 'align': [] }],
       ['clean'],
+      ['color', 'background', 'script', 'font', 'size', 'align', 'direction', 'code', 'formula']
     ],
   };
 
@@ -43,7 +41,9 @@ function CreatePost() {
     'header',
     'bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block',
     'list', 'bullet', 'indent',
-    'link', 'image', 'video'
+    'link', 'image', 'video',
+    'color', 'background', 'script', 'font', 'size', 'align', 'direction',
+    'code', 'formula', 'clean'
   ];
 
   const POST_CATEGORIES = ['Technology','Health and Wellness', 'Personal Development', 'Literature', 'Personal Development', 'Career and Business', 'Life Style', 'Finance', 'Food and Cooking'];
