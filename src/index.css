@@ -28,6 +28,14 @@
   --radius-3: 0.5rem;
   --radius-4: 2rem;
 }
+
+
+/* ============================ */
+
+
+.ql-indent-2 {
+  padding-left: 2em;
+}
 .post-detail__container {
   margin-bottom: 50px;
 }
