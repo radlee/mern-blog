@@ -52,7 +52,7 @@ function Register() {
             </button>
           </form>
           <small>
-            Already have an account? <Link to="/login">Login</Link>
+            Already have an account? <Link className='small' to="/login">Login</Link>
           </small>
         </div>
       </section>

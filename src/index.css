@@ -29,6 +29,10 @@
   --radius-4: 2rem;
 }
 
+.post-detail a {
+  color: var(--color-primary);
+}
+
 
 /* ==============Quill============== */
 
@@ -508,8 +512,12 @@ input, select, textarea {
 }
 
 
-.register small a, .login small a {
+.register  a, .login  a {
   color: var(--color-primary);
+}
+
+small {
+  color: black;
 }
 
 .category {

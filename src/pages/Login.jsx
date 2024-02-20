@@ -50,7 +50,7 @@ function Login() {
                          <input type="password" placeholder='Password' name='password' value={userData.password} onChange={changeInputHandler}/>
                          <button type='submit' className="btn primary">Login</button>
                     </form>
-                    <small>Don't have an account? <Link to='/register'>Register</Link></small>
+                    <small>Don't have an account? <Link className='small' to='/register'>Register</Link></small>
                 </div>
             </section>
         </div>
