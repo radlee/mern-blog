@@ -30,12 +30,58 @@
 }
 
 
-/* ============================ */
+/* ==============Quill============== */
 
+
+.ql-indent-1 {
+  padding-left: 1em;
+}
 
 .ql-indent-2 {
   padding-left: 2em;
 }
+
+.ql-indent-3 {
+  padding-left: 3em;
+}
+
+.ql-indent-4 {
+  padding-left: 4em;
+}
+
+.ql-indent-5 {
+  padding-left: 5em;
+}
+
+.ql-indent-6 {
+  padding-left: 6em;
+}
+
+.ql-indent-7 {
+  padding-left: 7em;
+}
+
+.ql-indent-8 {
+  padding-left: 8em;
+}
+
+.ql-indent-9 {
+  padding-left: 9em;
+}
+
+.ql-align-center {
+  text-align: center;
+}
+
+.ql-align-left{
+  text-align: left;
+}
+
+.ql-align-right{
+  text-align: right;
+}
+
+/* ==========================End Quill================== */
 .post-detail__container {
   margin-bottom: 50px;
 }
