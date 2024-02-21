@@ -4,7 +4,7 @@ import PostAuthor from './PostAuthor'
 
 function PostItem({postID, category, title, content, authorID, thumbnail, createdAt}) {
     const shortContent = content.length > 145 ? content.substr(0, 145) + '...' : content;
-    const shortTitle = title.length > 30 ? title.substr(0, 30) + '...' : title;
+    const shortTitle = title.length > 30 ? title.substr(0, 50) + '...' : title;
   return (
     <article className="post">
         <div className="post__thumbnail">
