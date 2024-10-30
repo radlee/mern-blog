@@ -59,7 +59,7 @@ function EditPost() {
     'code', 'formula', 'clean'
   ];
 
-  const POST_CATEGORIES = ['General','Health and Wellness', 'Technology', 'Personal Development', 'Finance', 'Career and Business', 'Travel', 'Lifestyle','Food and Cooking']
+  const POST_CATEGORIES = ['General','Health and Wellness', 'Technology', 'Growth', 'Finance', 'Career and Business', 'Travel', 'Lifestyle','Food and Cooking']
 
   const handleThumbnailChange = async (e) => {
     try {

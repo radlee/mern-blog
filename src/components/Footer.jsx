@@ -8,7 +8,7 @@ function Footer() {
             <ul className="footer__categories">
                 <li><Link to='posts/categories/Technology'>Technology</Link></li>
                 <li><Link to='posts/categories/Health and Wellness'>Health and Wellness</Link></li>
-                <li><Link to='posts/categories/Personal Development'>Personal Development</Link></li>
+                <li><Link to='posts/categories/Growth'>Growth</Link></li>
                 <li><Link to='posts/categories/Travel'>Travel</Link></li>
                 <li><Link to='posts/categories/Finance'>Finance</Link></li>
                 <li><Link to='posts/categories/Lifestyle'>Lifestyle</Link></li>

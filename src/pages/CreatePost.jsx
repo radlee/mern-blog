@@ -54,7 +54,7 @@ function CreatePost() {
     'code', 'formula', 'clean'
   ];
 
-  const POST_CATEGORIES = ['Technology','Health and Wellness', 'Personal Development', 'Literature', 'Personal Development', 'Career and Business', 'Life Style', 'Finance', 'Food and Cooking'];
+  const POST_CATEGORIES = ['Technology','Health and Wellness', 'Growth', 'Literature', 'Growth', 'Career and Business', 'Life Style', 'Finance', 'Food and Cooking'];
 
   const handleThumbnailChange = async (e) => {
     try {
