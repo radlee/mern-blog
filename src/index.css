@@ -11,10 +11,10 @@
   --color-gray-500: hsl(220, 20%, 10%, 50%);
   --color-gray-600: #333333;
   --color-gray-500: #555555;
-  --color-orange-dark: #FF5733; /* Darkish orange color */
-  --color-orange: #FF7043; /* Lighter orange color */
-  --color-gray-700: #252542;
-  --color-gray-900: #0c0c22; 
+  --color-orange-dark: #cf0f30; /* Darkish orange color */
+  --color-orange: #e91e40; /* Lighter orange color */
+  --color-gray-700: #990000;
+  --color-gray-900: #230202; 
   
   --color-bg: hwb(0 100% 0%);
 
@@ -517,7 +517,7 @@ input, select, textarea {
 }
 
 small {
-  color: black;
+  color: #cf0f30;
 }
 
 .category {
