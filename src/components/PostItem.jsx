@@ -21,7 +21,7 @@ function PostItem({ postID, category, title, content, authorID, thumbnail, creat
                     <Link to={`/posts/categories/${category}`} className='btn category'>{category}</Link>
                 </div>
             </div>
-            <div className="fb-comments" data-href="https://radblok.vercel.app/" data-width="" data-numposts="5"></div>
+            <div className="fb-comments" data-href="https://radblok-dz7cdgzl9-radlees-projects.vercel.app/" data-width="" data-numposts="5"></div>
         </article>
     );
 }
