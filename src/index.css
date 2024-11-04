@@ -336,7 +336,7 @@ footer {
 
 .footer__categories a {
   display: block;
-  background: var(--color-gray-700);
+  background: #950000;
   color: var(--color-white);
   padding: 0.6rem 1.4rem;
   border-radius: var(--radius-2);
@@ -513,7 +513,7 @@ input, select, textarea {
 
 
 .register  a, .login  a {
-  color: var(--color-primary);
+  color: #000000;
 }
 
 small {
