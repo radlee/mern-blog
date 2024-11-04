@@ -36,10 +36,10 @@ function PostDetail() {
     return <p className="error">{error.message}</p>;
   }
 
-  const disqusShortname = 'https-radblokmultimedia-onrender-com';
+  const disqusShortname = 'https://radblok.vercel.app';
 
   const disqusConfig = {
-    url: `https://radblokmultimedia.onrender.com/posts/${id}`, // Adjust the URL
+    url: `https://radblok.vercel.app/posts/${id}`, // Adjust the URL
     identifier: `${id}`,
     title: post ? post.title : '', // Check if post is not null before accessing properties
   };
