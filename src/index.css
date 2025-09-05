@@ -11,10 +11,10 @@
   --color-gray-500: hsl(220, 20%, 10%, 50%);
   --color-gray-600: #333333;
   --color-gray-500: #555555;
-  --color-orange-dark: #cf0f30; /* Darkish orange color */
+  --color-orange-dark: #000000; /* Darkish orange color */
   --color-orange: #e91e40; /* Lighter orange color */
   --color-gray-700: #000000;
-  --color-gray-900: #230202; 
+  --color-gray-900: #ff0000; 
   
   --color-bg: hwb(0 100% 0%);
 
@@ -336,7 +336,7 @@ footer {
 
 .footer__categories a {
   display: block;
-  background: #950000;
+  background: #000000;
   color: var(--color-white);
   padding: 0.6rem 1.4rem;
   border-radius: var(--radius-2);
@@ -517,7 +517,7 @@ input, select, textarea {
 }
 
 small {
-  color: #cf0f30;
+  color: #000000;
 }
 
 .category {
