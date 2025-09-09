@@ -19,15 +19,11 @@ function UserProfile() {
     const [author, setAuthor] = useState({});
     const [isAvatarTouched, setIsAvatarTouched] = useState(false);
     const [error, setError] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
+
 
     const navigate = useNavigate();
     const { currentUser } = useContext(UserContext);
     const token = currentUser?.token;
-
-    console.log('Avatar -- ', avatar)
-    console.log('Name -- ', name)
-    console.log('Email -- ', email)
 
     useEffect(() => {
         if (!token) {

@@ -28,7 +28,7 @@ function EditPost() {
       if(!token) {
       navigate('/login')
       }
-  }, []);
+  }, [token, navigate]);
 
 
   const modules = {
