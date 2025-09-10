@@ -10,38 +10,37 @@ import ru from 'javascript-time-ago/locale/ru.json';
 TimeAgo.addDefaultLocale(en);
 TimeAgo.addLocale(ru);
 
-function PostAuthor({authorID, createdAt}) {
+function PostAuthor({ authorID, createdAt }) {
   const [author, setAuthor] = useState({});
 
   useEffect(() => {
     const getAuthor = async () => {
-      try{
-        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/users/${authorID}`);
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_BASE_URL}/users/${authorID}`
+        );
         setAuthor(response?.data);
       } catch (error) {
-        console.log(error)
+        console.error('Failed to fetch author:', error);
       }
-    }
+    };
 
-    getAuthor();
-  }, []);
+    if (authorID) getAuthor();
+  }, [authorID]);
+
   return (
-    <Link to={`/posts/users/${authorID}`} className='post__author'>
-        <div className="post__author-avatar">
-       
-        {author?.avatar ? (
-          <img src={author?.avatar} alt="User Avatar" />
-          ) : (
-            // Provide a default or placeholder avatar image here
-          <img src={default_avatar} alt='avatar' />
-          )}
-        </div>
-        <div className="post__author-details">
-            <h5>{author.name}</h5>
-            <small><ReactTimeAgo date={new Date(createdAt)} locale='en-US' /></small>
-        </div>
+    <Link to={`/posts/users/${authorID}`} className="post__author">
+      <div className="post__author-avatar">
+        <img src={author?.avatar || default_avatar} alt="User Avatar" />
+      </div>
+      <div className="post__author-details">
+        <h5>{author?.name || 'Unknown Author'}</h5>
+        <small>
+          <ReactTimeAgo date={new Date(createdAt)} locale="en-US" />
+        </small>
+      </div>
     </Link>
-  )
+  );
 }
 
 export default PostAuthor;

@@ -4,30 +4,32 @@ import { UserContext } from '../context/userContext';
 import axios from 'axios';
 
 function Logout() {
-    const { setCurrentUser } = useContext(UserContext);
-    const navigate = useNavigate();
+  const { setCurrentUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        const logout = async () => {
-            try {
-                // Perform the logout request to the backend
-                await axios.post(`${process.env.REACT_APP_BASE_URL}/users/logout`);
+  useEffect(() => {
+    const logout = async () => {
+      try {
+        // Perform the logout request to the backend
+        await axios.post(`${process.env.REACT_APP_BASE_URL}/users/logout`, {}, { withCredentials: true });
 
-                // Clear the user context
-                setCurrentUser(null);
+        // Clear user from context
+        setCurrentUser(null);
 
-                // Redirect to the login page
-                navigate('/login');
-            } catch (error) {
-                console.error('Logout failed:', error);
-            }
-        };
+        // Remove user from localStorage (important if you persist login)
+        localStorage.removeItem('currentUser');
 
-        // Call the logout function
-        logout();
-    }, [setCurrentUser, navigate]);
+        // Redirect to login page
+        navigate('/login', { replace: true });
+      } catch (error) {
+        console.error('Logout failed:', error);
+      }
+    };
 
-    return null;
+    logout();
+  }, [setCurrentUser, navigate]);
+
+  return null;
 }
 
 export default Logout;

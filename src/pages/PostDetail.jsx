@@ -3,7 +3,7 @@ import PostAuthor from '../components/PostAuthor';
 import { Link, useParams } from 'react-router-dom';
 import Loader from '../components/Loader';
 import DeletePost from './DeletePost';
-import Disqus from 'disqus-react';
+import { DiscussionEmbed } from 'disqus-react';
 import { UserContext } from '../context/userContext';
 import axios from 'axios';
 
@@ -20,28 +20,24 @@ function PostDetail() {
       try {
         const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/${id}`);
         setPost(response.data);
-      } catch (error) {
-        setError(error);
+      } catch (err) {
+        setError(err.response?.data?.message || err.message);
       }
       setIsLoading(false);
     };
     getPost();
   }, [id]);
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  if (isLoading) return <Loader />;
+  if (error) return <p className="error">{error}</p>;
 
-  if (error) {
-    return <p className="error">{error.message}</p>;
-  }
-
-  const disqusShortname = 'https://radblok-dz7cdgzl9-radlees-projects.vercel.app/';
+  // Replace with your actual Disqus shortname (from Disqus dashboard)
+  const disqusShortname = "radblok";  
 
   const disqusConfig = {
-    url: `https://radblok-dz7cdgzl9-radlees-projects.vercel.app/posts/${id}`, // Adjust the URL
-    identifier: `${id}`,
-    title: post ? post.title : '', // Check if post is not null before accessing properties
+    url: `https://radblok-dz7cdgzl9-radlees-projects.vercel.app/posts/${id}`,
+    identifier: id,
+    title: post ? post.title : '',
   };
 
   return (
@@ -63,12 +59,12 @@ function PostDetail() {
           <div className="post-detail__thumbnail">
             <img src={post.thumbnail} alt="Thumbnail" />
           </div>
-          <p dangerouslySetInnerHTML={{ __html: post.content }}></p>
+          <div dangerouslySetInnerHTML={{ __html: post.content }} />
         </div>
       )}
       <br />
-      <div className='disqus'>
-        <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
+      <div className="disqus">
+        <DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
       </div>
     </section>
   );

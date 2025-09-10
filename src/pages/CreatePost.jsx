@@ -8,125 +8,118 @@ import axios from 'axios';
 function CreatePost() {
   const preset_key = 'radmultimedia';
   const cloud_name = 'dhdc57kw9';
+
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('General');
   const [content, setContent] = useState('');
-  const [thumbnail, setThumbnail] = useState(null);
+  const [thumbnailFile, setThumbnailFile] = useState(null);
+  const [thumbnailURL, setThumbnailURL] = useState(null);
   const [error, setError] = useState('');
 
-  
   const navigate = useNavigate();
   const { currentUser } = useContext(UserContext);
   const token = currentUser?.token;
 
-  // Redirect to Home Page for any user who is not logged in
-  useEffect(() => {
-    if (!token) {
-      navigate('/login');
-    }
-  }, [token, navigate]);
+  const POST_CATEGORIES = [
+    'Technology', 'Health and Wellness', 'Growth', 'Literature',
+    'Career and Business', 'Life Style', 'Finance', 'Food and Cooking'
+  ];
 
   const modules = {
     toolbar: [
-      ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+      ['bold', 'italic', 'underline', 'strike'],
       ['blockquote', 'code-block'],
       ['link', 'image', 'video', 'formula'],
-      [{ 'header': 1 }, { 'header': 2 }], // custom button values
-      [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
-      [{ 'script': 'sub' }, { 'script': 'super' }], // superscript/subscript
-      [{ 'indent': '-1' }, { 'indent': '+1' }], // outdent/indent
-      [{ 'direction': 'rtl' }], // text direction
-      [{ 'size': ['small', false, 'large', 'huge'] }], // custom dropdown
-      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-      [{ 'color': [] }, { 'background': [] }], // dropdown with defaults from theme
-      [{ 'font': [] }],
-      [{ 'align': [] }],
-      ['clean'] // remove formatting button
+      [{ header: 1 }, { header: 2 }],
+      [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
+      [{ script: 'sub' }, { script: 'super' }],
+      [{ indent: '-1' }, { indent: '+1' }],
+      [{ direction: 'rtl' }],
+      [{ size: ['small', false, 'large', 'huge'] }],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{ color: [] }, { background: [] }],
+      [{ font: [] }],
+      [{ align: [] }],
+      ['clean']
     ]
   };
 
   const formats = [
-    'header',
-    'bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block',
+    'header', 'bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block',
     'list', 'bullet', 'indent',
     'link', 'image', 'video',
     'color', 'background', 'script', 'font', 'size', 'align', 'direction',
     'code', 'formula', 'clean'
   ];
 
-  const POST_CATEGORIES = ['Technology','Health and Wellness', 'Growth', 'Literature', 'Growth', 'Career and Business', 'Life Style', 'Finance', 'Food and Cooking'];
+  // Redirect if not logged in
+  useEffect(() => {
+    if (!token) navigate('/login');
+  }, [token, navigate]);
 
   const handleThumbnailChange = async (e) => {
     try {
       const file = e.target.files[0];
-      setThumbnail(file);
+      setThumbnailFile(file);
+
       const imageData = new FormData();
       imageData.append('file', file);
       imageData.append('upload_preset', preset_key);
-  
-  
-      const response = await axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, imageData);
-      console.log("After Axios --- ", response.data);
-  
-      // SetThumbnail with the Cloudinary URL
-      setThumbnail(response.data.secure_url || '');
-    } catch (error) {
-      console.error(error);
+
+      const response = await axios.post(
+        `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
+        imageData
+      );
+
+      setThumbnailURL(response.data.secure_url || '');
+    } catch (err) {
+      console.error(err);
+      setError("Failed to upload thumbnail");
     }
   };
 
-  useEffect(() => {
-    // Create FormData when thumbnailFile is updated
-    if (thumbnail) {
-      const postData = new FormData();
-      postData.append('title', title);
-      postData.append('category', category);
-      postData.append('content', content);
-      postData.append('thumbnail', thumbnail);
-    }
-  }, [thumbnail, title, category, content]);
-
   const createPost = async (e) => {
     e.preventDefault();
+    if (!thumbnailURL) return setError("Thumbnail is required");
+
     try {
       const postData = new FormData();
       postData.append('title', title);
       postData.append('category', category);
       postData.append('content', content);
-      postData.append('thumbnail', thumbnail); // Set thumbnail as the URL, not the entire image data
-  console.log("Let us see 4563-- ", postData)
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/posts`, postData, { withCredentials: true, headers: {
-        'Content-Type': 'multipart/form-data',
-        'Authorization': `Bearer ${token}`
-    } });
-  
-      if (response.status === 201) {
-        return navigate('/');
-      }
+      postData.append('thumbnail', thumbnailURL);
+
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/posts`,
+        postData,
+        {
+          headers: { 'Content-Type': 'multipart/form-data', 'Authorization': `Bearer ${token}` },
+          withCredentials: true
+        }
+      );
+
+      if (response.status === 201) navigate('/');
     } catch (err) {
-      setError(err.response.data.message);
+      setError(err?.response?.data?.message || "Failed to create post");
     }
   };
 
-  const setContentValue = useCallback((value) => {
-    setContent(value);
-  }, [setContent]);
+  const setContentValue = useCallback((value) => setContent(value), []);
 
   return (
     <section className="create-post">
       <div className="container">
         <h2>Create a Blog</h2>
-        <img src={thumbnail} alt="" style={{ height: '300px' }} />
+        {thumbnailURL && <img src={thumbnailURL} alt="Thumbnail Preview" style={{ height: '300px' }} />}
         {error && <p className="form__error-message">{error}</p>}
-        <form className="form create-post__form" encType="multipart/form-data" onSubmit={createPost}>
-          <input type="text" placeholder='Title' value={title} onChange={(e) => setTitle(e.target.value)} autoFocus />
-          <select name="category" value={category} onChange={(e) => setCategory(e.target.value)}>
+        <form className="form create-post__form" onSubmit={createPost}>
+          <input type="text" placeholder='Title' value={title} onChange={e => setTitle(e.target.value)} autoFocus />
+          <select value={category} onChange={e => setCategory(e.target.value)}>
             {POST_CATEGORIES.map(cat => <option key={cat}>{cat}</option>)}
           </select>
           <ReactQuill modules={modules} formats={formats} value={content} onChange={setContentValue} />
-          <input type="file" name="thumbnail" onChange={handleThumbnailChange} accept="png, jpg, JPG, PNG, jpeg, JPEG, webp" />
+          <input type="file" accept="image/*" onChange={handleThumbnailChange} />
           <button type='submit' className="btn primary">Publish</button>
-          <br />
         </form>
       </div>
     </section>

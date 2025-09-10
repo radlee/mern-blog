@@ -8,34 +8,33 @@ function Posts() {
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const pageSize = 9; // keep consistent
 
   useEffect(() => {
     const fetchPosts = async () => {
       setIsLoading(true);
       try {
         const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts?page=${currentPage}`);
-        setPosts(response?.data.posts);
-        setTotalPages(Math.ceil(response?.data.total / 9)); // Assuming page_size is always 10
+        setPosts(response?.data.posts || []);
+        setTotalPages(Math.ceil((response?.data.total || 0) / pageSize));
       } catch (err) {
-        console.log(err);
+        console.error(err);
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     };
 
     fetchPosts();
   }, [currentPage]);
 
-  const handlePrevious = () => {
-    setCurrentPage((prevPage) => (prevPage > 1 ? prevPage - 1 : prevPage));
-  };
+  const handlePrevious = () => setCurrentPage(prev => Math.max(prev - 1, 1));
+  const handleNext = () => setCurrentPage(prev => Math.min(prev + 1, totalPages));
 
-  const handleNext = () => {
-    setCurrentPage((prevPage) => (prevPage < totalPages ? prevPage + 1 : prevPage));
-  };
+  if (isLoading) return <Loader />;
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  // Pagination helpers
+  const prevPages = Array.from({ length: Math.min(currentPage - 1, 4) }, (_, i) => currentPage - i - 1).reverse();
+  const nextPages = Array.from({ length: Math.min(totalPages - currentPage, 4) }, (_, i) => currentPage + i + 1);
 
   return (
     <section className="posts">
@@ -57,31 +56,28 @@ function Posts() {
       ) : (
         <h2 className="center">No Posts Published</h2>
       )}
-        <div className="warpper">
-          <div className="pagination">
-          <button disabled={currentPage === 1} onClick={handlePrevious}>
-            Prev
-          </button>
-          {/* Additional pagination options on the left */}
-          {Array.from({ length: Math.min(currentPage - 1, 4) }, (_, i) => (
-            <button key={i} onClick={() => setCurrentPage(currentPage - i - 1)}>
-              {currentPage - i - 1}
-            </button>
-          ))}
+
+      <div className="wrapper">
+        <div className="pagination">
+          <button disabled={currentPage === 1} onClick={handlePrevious}>Prev</button>
           
-          {/* Additional pagination options on the right */}
-          {Array.from({ length: Math.min(totalPages - currentPage, 4) }, (_, i) => (
-            <button key={i} onClick={() => setCurrentPage(currentPage + i + 1)}>
-              {currentPage + i + 1}
-            </button>
+          {prevPages.map(page => (
+            <button key={page} onClick={() => setCurrentPage(page)}>{page}</button>
           ))}
-          <button disabled={currentPage === totalPages} onClick={handleNext}>
-            Next
-          </button>
+
+          <button className="current">{currentPage}</button>
+
+          {nextPages.map(page => (
+            <button key={page} onClick={() => setCurrentPage(page)}>{page}</button>
+          ))}
+
+          <button disabled={currentPage === totalPages} onClick={handleNext}>Next</button>
         </div>
+
         <hr />
-        <div className='pageteller'>
-          <button id='counter'>Page {currentPage} of {totalPages}</button>
+
+        <div className="pageteller">
+          <span>Page {currentPage} of {totalPages}</span>
         </div>
       </div>
     </section>
